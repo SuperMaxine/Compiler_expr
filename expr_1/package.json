@@ -1,0 +1,14 @@
+{
+  "name": "expr_1",
+  "version": "1.0.0",
+  "description": "A simple lexical analysis program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SuperMaxine",
+  "license": "MIT",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
