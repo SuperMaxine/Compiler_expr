@@ -1,0 +1,3989 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMMENTS
+    INT_CONST_16
+    INT_CONST_8
+
+Grammar
+
+Rule 0     S' -> translation_unit
+Rule 1     translation_unit -> external_decl
+Rule 2     translation_unit -> translation_unit external_decl
+Rule 3     external_decl -> funcdef
+Rule 4     external_decl -> declstmt
+Rule 5     statement_list -> statement
+Rule 6     statement_list -> statement statement_list
+Rule 7     statement -> assignment_statement
+Rule 8     statement -> declstmt
+Rule 9     statement -> while_statement
+Rule 10    statement -> funccall_stmt
+Rule 11    statement -> jump_statement
+Rule 12    statement -> selection_statement
+Rule 13    typedecl -> type cast_expr
+Rule 14    typedecl -> type cast_expr EQUALS expression
+Rule 15    arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+Rule 16    arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET
+Rule 17    funcdecl -> storage type methodsymbol LPAREN param_list RPAREN
+Rule 18    funcdecl -> type methodsymbol LPAREN param_list RPAREN
+Rule 19    pointer -> TIMES
+Rule 20    pointer -> pointer TIMES
+Rule 21    storage -> EXTERN
+Rule 22    storage -> STATIC
+Rule 23    type -> basetype pointer
+Rule 24    type -> basetype
+Rule 25    declaration -> typedecl
+Rule 26    declaration -> arraydecl
+Rule 27    declaration -> funcdecl
+Rule 28    declstmt -> declaration SEMI
+Rule 29    compound_statement -> LBRACE statement_list RBRACE
+Rule 30    while_statement -> WHILE LPAREN expression RPAREN compound_statement
+Rule 31    if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement
+Rule 32    if_statement2 -> IF LPAREN expression RPAREN compound_statement
+Rule 33    selection_statement -> if_statement1
+Rule 34    selection_statement -> if_statement2
+Rule 35    break_statement -> BREAK SEMI
+Rule 36    continue_statement -> CONTINUE SEMI
+Rule 37    jump_statement -> return_statement
+Rule 38    jump_statement -> continue_statement
+Rule 39    jump_statement -> break_statement
+Rule 40    return_statement -> RETURN expression SEMI
+Rule 41    return_statement -> RETURN SEMI
+Rule 42    assignment_statement -> assignment_expr SEMI
+Rule 43    assignment_expr -> cast_expr EQUALS expression
+Rule 44    expression -> binary_expr
+Rule 45    expression -> funccall_expr
+Rule 46    cast_expr -> unary_expr
+Rule 47    cast_expr -> primary_expr
+Rule 48    primary_expr -> varsymbol
+Rule 49    primary_expr -> constant
+Rule 50    unary_op -> BAND
+Rule 51    unary_op -> TIMES
+Rule 52    unary_expr -> unary_op primary_expr
+Rule 53    binary_expr -> binary_expr PLUS binary_expr
+Rule 54    binary_expr -> binary_expr MINUS binary_expr
+Rule 55    binary_expr -> binary_expr TIMES binary_expr
+Rule 56    binary_expr -> binary_expr DIVIDES binary_expr
+Rule 57    binary_expr -> binary_expr GT binary_expr
+Rule 58    binary_expr -> binary_expr LT binary_expr
+Rule 59    binary_expr -> binary_expr LE binary_expr
+Rule 60    binary_expr -> binary_expr GE binary_expr
+Rule 61    binary_expr -> binary_expr EQ binary_expr
+Rule 62    binary_expr -> binary_expr NE binary_expr
+Rule 63    binary_expr -> binary_expr LAND binary_expr
+Rule 64    binary_expr -> binary_expr LOR binary_expr
+Rule 65    binary_expr -> LPAREN binary_expr RPAREN
+Rule 66    binary_expr -> cast_expr
+Rule 67    binary_expr -> funccall_expr
+Rule 68    param -> type varsymbol
+Rule 69    param_list -> param
+Rule 70    param_list -> param COMMA param_list
+Rule 71    param_list -> VOID
+Rule 72    argument -> varsymbol
+Rule 73    argument -> constant
+Rule 74    argument_list -> argument
+Rule 75    argument_list -> argument COMMA argument_list
+Rule 76    funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement
+Rule 77    funcdef -> type methodsymbol LPAREN RPAREN compound_statement
+Rule 78    funccall_expr -> methodsymbol LPAREN argument_list RPAREN
+Rule 79    funccall_expr -> methodsymbol LPAREN RPAREN
+Rule 80    funccall_stmt -> funccall_expr SEMI
+Rule 81    basetype -> INT
+Rule 82    basetype -> CHAR
+Rule 83    basetype -> FLOAT
+Rule 84    basetype -> VOID
+Rule 85    methodsymbol -> ID
+Rule 86    varsymbol -> ID
+Rule 87    constant -> INT_CONST
+Rule 88    constant -> CHAR_CONST
+Rule 89    constant -> FLOAT_CONST
+Rule 90    constant -> NORMALSTRING
+
+Terminals, with rules where they appear
+
+BAND                 : 50
+BREAK                : 35
+CHAR                 : 82
+CHAR_CONST           : 88
+COMMA                : 70 75
+COMMENTS             : 
+CONTINUE             : 36
+DIVIDES              : 56
+ELSE                 : 31
+EQ                   : 61
+EQUALS               : 14 15 43
+EXTERN               : 21
+FLOAT                : 83
+FLOAT_CONST          : 89
+GE                   : 60
+GT                   : 57
+ID                   : 85 86
+IF                   : 31 32
+INT                  : 81
+INT_CONST            : 15 16 87
+INT_CONST_16         : 
+INT_CONST_8          : 
+LAND                 : 63
+LBRACE               : 29
+LBRACKET             : 15 16
+LE                   : 59
+LOR                  : 64
+LPAREN               : 17 18 30 31 32 65 76 77 78 79
+LT                   : 58
+MINUS                : 54
+NE                   : 62
+NORMALSTRING         : 90
+PLUS                 : 53
+RBRACE               : 29
+RBRACKET             : 15 16
+RETURN               : 40 41
+RPAREN               : 17 18 30 31 32 65 76 77 78 79
+SEMI                 : 28 35 36 40 41 42 80
+STATIC               : 22
+TIMES                : 19 20 51 55
+VOID                 : 71 84
+WHILE                : 30
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument             : 74 75
+argument_list        : 75 78
+arraydecl            : 26
+assignment_expr      : 42
+assignment_statement : 7
+basetype             : 23 24
+binary_expr          : 44 53 53 54 54 55 55 56 56 57 57 58 58 59 59 60 60 61 61 62 62 63 63 64 64 65
+break_statement      : 39
+cast_expr            : 13 14 43 66
+compound_statement   : 30 31 31 32 76 77
+constant             : 49 73
+continue_statement   : 38
+declaration          : 28
+declstmt             : 4 8
+expression           : 14 15 30 31 32 40 43
+external_decl        : 1 2
+funccall_expr        : 45 67 80
+funccall_stmt        : 10
+funcdecl             : 27
+funcdef              : 3
+if_statement1        : 33
+if_statement2        : 34
+jump_statement       : 11
+methodsymbol         : 17 18 76 77 78 79
+param                : 69 70
+param_list           : 17 18 70 76
+pointer              : 20 23
+primary_expr         : 47 52
+return_statement     : 37
+selection_statement  : 12
+statement            : 5 6
+statement_list       : 6 29
+storage              : 17
+translation_unit     : 2 0
+type                 : 13 14 15 16 17 18 68 76 77
+typedecl             : 25
+unary_expr           : 46
+unary_op             : 52
+varsymbol            : 15 16 48 68 72
+while_statement      : 9
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . translation_unit
+    (1) translation_unit -> . external_decl
+    (2) translation_unit -> . translation_unit external_decl
+    (3) external_decl -> . funcdef
+    (4) external_decl -> . declstmt
+    (76) funcdef -> . type methodsymbol LPAREN param_list RPAREN compound_statement
+    (77) funcdef -> . type methodsymbol LPAREN RPAREN compound_statement
+    (28) declstmt -> . declaration SEMI
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (25) declaration -> . typedecl
+    (26) declaration -> . arraydecl
+    (27) declaration -> . funcdecl
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+    (13) typedecl -> . type cast_expr
+    (14) typedecl -> . type cast_expr EQUALS expression
+    (15) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET
+    (17) funcdecl -> . storage type methodsymbol LPAREN param_list RPAREN
+    (18) funcdecl -> . type methodsymbol LPAREN param_list RPAREN
+    (21) storage -> . EXTERN
+    (22) storage -> . STATIC
+
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+    VOID            shift and go to state 14
+    EXTERN          shift and go to state 16
+    STATIC          shift and go to state 17
+
+    translation_unit               shift and go to state 1
+    external_decl                  shift and go to state 2
+    funcdef                        shift and go to state 3
+    declstmt                       shift and go to state 4
+    type                           shift and go to state 5
+    declaration                    shift and go to state 6
+    basetype                       shift and go to state 7
+    typedecl                       shift and go to state 8
+    arraydecl                      shift and go to state 9
+    funcdecl                       shift and go to state 10
+    storage                        shift and go to state 15
+
+state 1
+
+    (0) S' -> translation_unit .
+    (2) translation_unit -> translation_unit . external_decl
+    (3) external_decl -> . funcdef
+    (4) external_decl -> . declstmt
+    (76) funcdef -> . type methodsymbol LPAREN param_list RPAREN compound_statement
+    (77) funcdef -> . type methodsymbol LPAREN RPAREN compound_statement
+    (28) declstmt -> . declaration SEMI
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (25) declaration -> . typedecl
+    (26) declaration -> . arraydecl
+    (27) declaration -> . funcdecl
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+    (13) typedecl -> . type cast_expr
+    (14) typedecl -> . type cast_expr EQUALS expression
+    (15) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET
+    (17) funcdecl -> . storage type methodsymbol LPAREN param_list RPAREN
+    (18) funcdecl -> . type methodsymbol LPAREN param_list RPAREN
+    (21) storage -> . EXTERN
+    (22) storage -> . STATIC
+
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+    VOID            shift and go to state 14
+    EXTERN          shift and go to state 16
+    STATIC          shift and go to state 17
+
+    external_decl                  shift and go to state 18
+    funcdef                        shift and go to state 3
+    declstmt                       shift and go to state 4
+    type                           shift and go to state 5
+    declaration                    shift and go to state 6
+    basetype                       shift and go to state 7
+    typedecl                       shift and go to state 8
+    arraydecl                      shift and go to state 9
+    funcdecl                       shift and go to state 10
+    storage                        shift and go to state 15
+
+state 2
+
+    (1) translation_unit -> external_decl .
+
+    INT             reduce using rule 1 (translation_unit -> external_decl .)
+    CHAR            reduce using rule 1 (translation_unit -> external_decl .)
+    FLOAT           reduce using rule 1 (translation_unit -> external_decl .)
+    VOID            reduce using rule 1 (translation_unit -> external_decl .)
+    EXTERN          reduce using rule 1 (translation_unit -> external_decl .)
+    STATIC          reduce using rule 1 (translation_unit -> external_decl .)
+    $end            reduce using rule 1 (translation_unit -> external_decl .)
+
+
+state 3
+
+    (3) external_decl -> funcdef .
+
+    INT             reduce using rule 3 (external_decl -> funcdef .)
+    CHAR            reduce using rule 3 (external_decl -> funcdef .)
+    FLOAT           reduce using rule 3 (external_decl -> funcdef .)
+    VOID            reduce using rule 3 (external_decl -> funcdef .)
+    EXTERN          reduce using rule 3 (external_decl -> funcdef .)
+    STATIC          reduce using rule 3 (external_decl -> funcdef .)
+    $end            reduce using rule 3 (external_decl -> funcdef .)
+
+
+state 4
+
+    (4) external_decl -> declstmt .
+
+    INT             reduce using rule 4 (external_decl -> declstmt .)
+    CHAR            reduce using rule 4 (external_decl -> declstmt .)
+    FLOAT           reduce using rule 4 (external_decl -> declstmt .)
+    VOID            reduce using rule 4 (external_decl -> declstmt .)
+    EXTERN          reduce using rule 4 (external_decl -> declstmt .)
+    STATIC          reduce using rule 4 (external_decl -> declstmt .)
+    $end            reduce using rule 4 (external_decl -> declstmt .)
+
+
+state 5
+
+    (76) funcdef -> type . methodsymbol LPAREN param_list RPAREN compound_statement
+    (77) funcdef -> type . methodsymbol LPAREN RPAREN compound_statement
+    (13) typedecl -> type . cast_expr
+    (14) typedecl -> type . cast_expr EQUALS expression
+    (15) arraydecl -> type . varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> type . varsymbol LBRACKET INT_CONST RBRACKET
+    (18) funcdecl -> type . methodsymbol LPAREN param_list RPAREN
+    (85) methodsymbol -> . ID
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (86) varsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    methodsymbol                   shift and go to state 19
+    cast_expr                      shift and go to state 20
+    varsymbol                      shift and go to state 21
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    constant                       shift and go to state 27
+
+state 6
+
+    (28) declstmt -> declaration . SEMI
+
+    SEMI            shift and go to state 33
+
+
+state 7
+
+    (23) type -> basetype . pointer
+    (24) type -> basetype .
+    (19) pointer -> . TIMES
+    (20) pointer -> . pointer TIMES
+
+  ! shift/reduce conflict for TIMES resolved as shift
+    ID              reduce using rule 24 (type -> basetype .)
+    BAND            reduce using rule 24 (type -> basetype .)
+    INT_CONST       reduce using rule 24 (type -> basetype .)
+    CHAR_CONST      reduce using rule 24 (type -> basetype .)
+    FLOAT_CONST     reduce using rule 24 (type -> basetype .)
+    NORMALSTRING    reduce using rule 24 (type -> basetype .)
+    TIMES           shift and go to state 35
+
+  ! TIMES           [ reduce using rule 24 (type -> basetype .) ]
+
+    pointer                        shift and go to state 34
+
+state 8
+
+    (25) declaration -> typedecl .
+
+    SEMI            reduce using rule 25 (declaration -> typedecl .)
+
+
+state 9
+
+    (26) declaration -> arraydecl .
+
+    SEMI            reduce using rule 26 (declaration -> arraydecl .)
+
+
+state 10
+
+    (27) declaration -> funcdecl .
+
+    SEMI            reduce using rule 27 (declaration -> funcdecl .)
+
+
+state 11
+
+    (81) basetype -> INT .
+
+    TIMES           reduce using rule 81 (basetype -> INT .)
+    ID              reduce using rule 81 (basetype -> INT .)
+    BAND            reduce using rule 81 (basetype -> INT .)
+    INT_CONST       reduce using rule 81 (basetype -> INT .)
+    CHAR_CONST      reduce using rule 81 (basetype -> INT .)
+    FLOAT_CONST     reduce using rule 81 (basetype -> INT .)
+    NORMALSTRING    reduce using rule 81 (basetype -> INT .)
+
+
+state 12
+
+    (82) basetype -> CHAR .
+
+    TIMES           reduce using rule 82 (basetype -> CHAR .)
+    ID              reduce using rule 82 (basetype -> CHAR .)
+    BAND            reduce using rule 82 (basetype -> CHAR .)
+    INT_CONST       reduce using rule 82 (basetype -> CHAR .)
+    CHAR_CONST      reduce using rule 82 (basetype -> CHAR .)
+    FLOAT_CONST     reduce using rule 82 (basetype -> CHAR .)
+    NORMALSTRING    reduce using rule 82 (basetype -> CHAR .)
+
+
+state 13
+
+    (83) basetype -> FLOAT .
+
+    TIMES           reduce using rule 83 (basetype -> FLOAT .)
+    ID              reduce using rule 83 (basetype -> FLOAT .)
+    BAND            reduce using rule 83 (basetype -> FLOAT .)
+    INT_CONST       reduce using rule 83 (basetype -> FLOAT .)
+    CHAR_CONST      reduce using rule 83 (basetype -> FLOAT .)
+    FLOAT_CONST     reduce using rule 83 (basetype -> FLOAT .)
+    NORMALSTRING    reduce using rule 83 (basetype -> FLOAT .)
+
+
+state 14
+
+    (84) basetype -> VOID .
+
+    TIMES           reduce using rule 84 (basetype -> VOID .)
+    ID              reduce using rule 84 (basetype -> VOID .)
+    BAND            reduce using rule 84 (basetype -> VOID .)
+    INT_CONST       reduce using rule 84 (basetype -> VOID .)
+    CHAR_CONST      reduce using rule 84 (basetype -> VOID .)
+    FLOAT_CONST     reduce using rule 84 (basetype -> VOID .)
+    NORMALSTRING    reduce using rule 84 (basetype -> VOID .)
+
+
+state 15
+
+    (17) funcdecl -> storage . type methodsymbol LPAREN param_list RPAREN
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+    VOID            shift and go to state 14
+
+    type                           shift and go to state 36
+    basetype                       shift and go to state 7
+
+state 16
+
+    (21) storage -> EXTERN .
+
+    INT             reduce using rule 21 (storage -> EXTERN .)
+    CHAR            reduce using rule 21 (storage -> EXTERN .)
+    FLOAT           reduce using rule 21 (storage -> EXTERN .)
+    VOID            reduce using rule 21 (storage -> EXTERN .)
+
+
+state 17
+
+    (22) storage -> STATIC .
+
+    INT             reduce using rule 22 (storage -> STATIC .)
+    CHAR            reduce using rule 22 (storage -> STATIC .)
+    FLOAT           reduce using rule 22 (storage -> STATIC .)
+    VOID            reduce using rule 22 (storage -> STATIC .)
+
+
+state 18
+
+    (2) translation_unit -> translation_unit external_decl .
+
+    INT             reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    CHAR            reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    FLOAT           reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    VOID            reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    EXTERN          reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    STATIC          reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+    $end            reduce using rule 2 (translation_unit -> translation_unit external_decl .)
+
+
+state 19
+
+    (76) funcdef -> type methodsymbol . LPAREN param_list RPAREN compound_statement
+    (77) funcdef -> type methodsymbol . LPAREN RPAREN compound_statement
+    (18) funcdecl -> type methodsymbol . LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 37
+
+
+state 20
+
+    (13) typedecl -> type cast_expr .
+    (14) typedecl -> type cast_expr . EQUALS expression
+
+    SEMI            reduce using rule 13 (typedecl -> type cast_expr .)
+    EQUALS          shift and go to state 38
+
+
+state 21
+
+    (15) arraydecl -> type varsymbol . LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> type varsymbol . LBRACKET INT_CONST RBRACKET
+    (48) primary_expr -> varsymbol .
+
+    LBRACKET        shift and go to state 39
+    EQUALS          reduce using rule 48 (primary_expr -> varsymbol .)
+    SEMI            reduce using rule 48 (primary_expr -> varsymbol .)
+
+
+state 22
+
+    (87) constant -> INT_CONST .
+
+    EQUALS          reduce using rule 87 (constant -> INT_CONST .)
+    SEMI            reduce using rule 87 (constant -> INT_CONST .)
+    PLUS            reduce using rule 87 (constant -> INT_CONST .)
+    MINUS           reduce using rule 87 (constant -> INT_CONST .)
+    TIMES           reduce using rule 87 (constant -> INT_CONST .)
+    DIVIDES         reduce using rule 87 (constant -> INT_CONST .)
+    GT              reduce using rule 87 (constant -> INT_CONST .)
+    LT              reduce using rule 87 (constant -> INT_CONST .)
+    LE              reduce using rule 87 (constant -> INT_CONST .)
+    GE              reduce using rule 87 (constant -> INT_CONST .)
+    EQ              reduce using rule 87 (constant -> INT_CONST .)
+    NE              reduce using rule 87 (constant -> INT_CONST .)
+    LAND            reduce using rule 87 (constant -> INT_CONST .)
+    LOR             reduce using rule 87 (constant -> INT_CONST .)
+    RPAREN          reduce using rule 87 (constant -> INT_CONST .)
+    COMMA           reduce using rule 87 (constant -> INT_CONST .)
+
+
+state 23
+
+    (85) methodsymbol -> ID .
+    (86) varsymbol -> ID .
+
+    LPAREN          reduce using rule 85 (methodsymbol -> ID .)
+    LBRACKET        reduce using rule 86 (varsymbol -> ID .)
+    EQUALS          reduce using rule 86 (varsymbol -> ID .)
+    SEMI            reduce using rule 86 (varsymbol -> ID .)
+    PLUS            reduce using rule 86 (varsymbol -> ID .)
+    MINUS           reduce using rule 86 (varsymbol -> ID .)
+    TIMES           reduce using rule 86 (varsymbol -> ID .)
+    DIVIDES         reduce using rule 86 (varsymbol -> ID .)
+    GT              reduce using rule 86 (varsymbol -> ID .)
+    LT              reduce using rule 86 (varsymbol -> ID .)
+    LE              reduce using rule 86 (varsymbol -> ID .)
+    GE              reduce using rule 86 (varsymbol -> ID .)
+    EQ              reduce using rule 86 (varsymbol -> ID .)
+    NE              reduce using rule 86 (varsymbol -> ID .)
+    LAND            reduce using rule 86 (varsymbol -> ID .)
+    LOR             reduce using rule 86 (varsymbol -> ID .)
+    RPAREN          reduce using rule 86 (varsymbol -> ID .)
+
+
+state 24
+
+    (46) cast_expr -> unary_expr .
+
+    EQUALS          reduce using rule 46 (cast_expr -> unary_expr .)
+    SEMI            reduce using rule 46 (cast_expr -> unary_expr .)
+    PLUS            reduce using rule 46 (cast_expr -> unary_expr .)
+    MINUS           reduce using rule 46 (cast_expr -> unary_expr .)
+    TIMES           reduce using rule 46 (cast_expr -> unary_expr .)
+    DIVIDES         reduce using rule 46 (cast_expr -> unary_expr .)
+    GT              reduce using rule 46 (cast_expr -> unary_expr .)
+    LT              reduce using rule 46 (cast_expr -> unary_expr .)
+    LE              reduce using rule 46 (cast_expr -> unary_expr .)
+    GE              reduce using rule 46 (cast_expr -> unary_expr .)
+    EQ              reduce using rule 46 (cast_expr -> unary_expr .)
+    NE              reduce using rule 46 (cast_expr -> unary_expr .)
+    LAND            reduce using rule 46 (cast_expr -> unary_expr .)
+    LOR             reduce using rule 46 (cast_expr -> unary_expr .)
+    RPAREN          reduce using rule 46 (cast_expr -> unary_expr .)
+
+
+state 25
+
+    (47) cast_expr -> primary_expr .
+
+    EQUALS          reduce using rule 47 (cast_expr -> primary_expr .)
+    SEMI            reduce using rule 47 (cast_expr -> primary_expr .)
+    PLUS            reduce using rule 47 (cast_expr -> primary_expr .)
+    MINUS           reduce using rule 47 (cast_expr -> primary_expr .)
+    TIMES           reduce using rule 47 (cast_expr -> primary_expr .)
+    DIVIDES         reduce using rule 47 (cast_expr -> primary_expr .)
+    GT              reduce using rule 47 (cast_expr -> primary_expr .)
+    LT              reduce using rule 47 (cast_expr -> primary_expr .)
+    LE              reduce using rule 47 (cast_expr -> primary_expr .)
+    GE              reduce using rule 47 (cast_expr -> primary_expr .)
+    EQ              reduce using rule 47 (cast_expr -> primary_expr .)
+    NE              reduce using rule 47 (cast_expr -> primary_expr .)
+    LAND            reduce using rule 47 (cast_expr -> primary_expr .)
+    LOR             reduce using rule 47 (cast_expr -> primary_expr .)
+    RPAREN          reduce using rule 47 (cast_expr -> primary_expr .)
+
+
+state 26
+
+    (52) unary_expr -> unary_op . primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    ID              shift and go to state 42
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    primary_expr                   shift and go to state 40
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 27
+
+    (49) primary_expr -> constant .
+
+    EQUALS          reduce using rule 49 (primary_expr -> constant .)
+    SEMI            reduce using rule 49 (primary_expr -> constant .)
+    PLUS            reduce using rule 49 (primary_expr -> constant .)
+    MINUS           reduce using rule 49 (primary_expr -> constant .)
+    TIMES           reduce using rule 49 (primary_expr -> constant .)
+    DIVIDES         reduce using rule 49 (primary_expr -> constant .)
+    GT              reduce using rule 49 (primary_expr -> constant .)
+    LT              reduce using rule 49 (primary_expr -> constant .)
+    LE              reduce using rule 49 (primary_expr -> constant .)
+    GE              reduce using rule 49 (primary_expr -> constant .)
+    EQ              reduce using rule 49 (primary_expr -> constant .)
+    NE              reduce using rule 49 (primary_expr -> constant .)
+    LAND            reduce using rule 49 (primary_expr -> constant .)
+    LOR             reduce using rule 49 (primary_expr -> constant .)
+    RPAREN          reduce using rule 49 (primary_expr -> constant .)
+
+
+state 28
+
+    (50) unary_op -> BAND .
+
+    ID              reduce using rule 50 (unary_op -> BAND .)
+    INT_CONST       reduce using rule 50 (unary_op -> BAND .)
+    CHAR_CONST      reduce using rule 50 (unary_op -> BAND .)
+    FLOAT_CONST     reduce using rule 50 (unary_op -> BAND .)
+    NORMALSTRING    reduce using rule 50 (unary_op -> BAND .)
+
+
+state 29
+
+    (51) unary_op -> TIMES .
+
+    ID              reduce using rule 51 (unary_op -> TIMES .)
+    INT_CONST       reduce using rule 51 (unary_op -> TIMES .)
+    CHAR_CONST      reduce using rule 51 (unary_op -> TIMES .)
+    FLOAT_CONST     reduce using rule 51 (unary_op -> TIMES .)
+    NORMALSTRING    reduce using rule 51 (unary_op -> TIMES .)
+
+
+state 30
+
+    (88) constant -> CHAR_CONST .
+
+    EQUALS          reduce using rule 88 (constant -> CHAR_CONST .)
+    SEMI            reduce using rule 88 (constant -> CHAR_CONST .)
+    PLUS            reduce using rule 88 (constant -> CHAR_CONST .)
+    MINUS           reduce using rule 88 (constant -> CHAR_CONST .)
+    TIMES           reduce using rule 88 (constant -> CHAR_CONST .)
+    DIVIDES         reduce using rule 88 (constant -> CHAR_CONST .)
+    GT              reduce using rule 88 (constant -> CHAR_CONST .)
+    LT              reduce using rule 88 (constant -> CHAR_CONST .)
+    LE              reduce using rule 88 (constant -> CHAR_CONST .)
+    GE              reduce using rule 88 (constant -> CHAR_CONST .)
+    EQ              reduce using rule 88 (constant -> CHAR_CONST .)
+    NE              reduce using rule 88 (constant -> CHAR_CONST .)
+    LAND            reduce using rule 88 (constant -> CHAR_CONST .)
+    LOR             reduce using rule 88 (constant -> CHAR_CONST .)
+    RPAREN          reduce using rule 88 (constant -> CHAR_CONST .)
+    COMMA           reduce using rule 88 (constant -> CHAR_CONST .)
+
+
+state 31
+
+    (89) constant -> FLOAT_CONST .
+
+    EQUALS          reduce using rule 89 (constant -> FLOAT_CONST .)
+    SEMI            reduce using rule 89 (constant -> FLOAT_CONST .)
+    PLUS            reduce using rule 89 (constant -> FLOAT_CONST .)
+    MINUS           reduce using rule 89 (constant -> FLOAT_CONST .)
+    TIMES           reduce using rule 89 (constant -> FLOAT_CONST .)
+    DIVIDES         reduce using rule 89 (constant -> FLOAT_CONST .)
+    GT              reduce using rule 89 (constant -> FLOAT_CONST .)
+    LT              reduce using rule 89 (constant -> FLOAT_CONST .)
+    LE              reduce using rule 89 (constant -> FLOAT_CONST .)
+    GE              reduce using rule 89 (constant -> FLOAT_CONST .)
+    EQ              reduce using rule 89 (constant -> FLOAT_CONST .)
+    NE              reduce using rule 89 (constant -> FLOAT_CONST .)
+    LAND            reduce using rule 89 (constant -> FLOAT_CONST .)
+    LOR             reduce using rule 89 (constant -> FLOAT_CONST .)
+    RPAREN          reduce using rule 89 (constant -> FLOAT_CONST .)
+    COMMA           reduce using rule 89 (constant -> FLOAT_CONST .)
+
+
+state 32
+
+    (90) constant -> NORMALSTRING .
+
+    EQUALS          reduce using rule 90 (constant -> NORMALSTRING .)
+    SEMI            reduce using rule 90 (constant -> NORMALSTRING .)
+    PLUS            reduce using rule 90 (constant -> NORMALSTRING .)
+    MINUS           reduce using rule 90 (constant -> NORMALSTRING .)
+    TIMES           reduce using rule 90 (constant -> NORMALSTRING .)
+    DIVIDES         reduce using rule 90 (constant -> NORMALSTRING .)
+    GT              reduce using rule 90 (constant -> NORMALSTRING .)
+    LT              reduce using rule 90 (constant -> NORMALSTRING .)
+    LE              reduce using rule 90 (constant -> NORMALSTRING .)
+    GE              reduce using rule 90 (constant -> NORMALSTRING .)
+    EQ              reduce using rule 90 (constant -> NORMALSTRING .)
+    NE              reduce using rule 90 (constant -> NORMALSTRING .)
+    LAND            reduce using rule 90 (constant -> NORMALSTRING .)
+    LOR             reduce using rule 90 (constant -> NORMALSTRING .)
+    RPAREN          reduce using rule 90 (constant -> NORMALSTRING .)
+    COMMA           reduce using rule 90 (constant -> NORMALSTRING .)
+
+
+state 33
+
+    (28) declstmt -> declaration SEMI .
+
+    INT             reduce using rule 28 (declstmt -> declaration SEMI .)
+    CHAR            reduce using rule 28 (declstmt -> declaration SEMI .)
+    FLOAT           reduce using rule 28 (declstmt -> declaration SEMI .)
+    VOID            reduce using rule 28 (declstmt -> declaration SEMI .)
+    EXTERN          reduce using rule 28 (declstmt -> declaration SEMI .)
+    STATIC          reduce using rule 28 (declstmt -> declaration SEMI .)
+    $end            reduce using rule 28 (declstmt -> declaration SEMI .)
+    WHILE           reduce using rule 28 (declstmt -> declaration SEMI .)
+    RETURN          reduce using rule 28 (declstmt -> declaration SEMI .)
+    CONTINUE        reduce using rule 28 (declstmt -> declaration SEMI .)
+    BREAK           reduce using rule 28 (declstmt -> declaration SEMI .)
+    IF              reduce using rule 28 (declstmt -> declaration SEMI .)
+    ID              reduce using rule 28 (declstmt -> declaration SEMI .)
+    BAND            reduce using rule 28 (declstmt -> declaration SEMI .)
+    TIMES           reduce using rule 28 (declstmt -> declaration SEMI .)
+    INT_CONST       reduce using rule 28 (declstmt -> declaration SEMI .)
+    CHAR_CONST      reduce using rule 28 (declstmt -> declaration SEMI .)
+    FLOAT_CONST     reduce using rule 28 (declstmt -> declaration SEMI .)
+    NORMALSTRING    reduce using rule 28 (declstmt -> declaration SEMI .)
+    RBRACE          reduce using rule 28 (declstmt -> declaration SEMI .)
+
+
+state 34
+
+    (23) type -> basetype pointer .
+    (20) pointer -> pointer . TIMES
+
+  ! shift/reduce conflict for TIMES resolved as shift
+    ID              reduce using rule 23 (type -> basetype pointer .)
+    BAND            reduce using rule 23 (type -> basetype pointer .)
+    INT_CONST       reduce using rule 23 (type -> basetype pointer .)
+    CHAR_CONST      reduce using rule 23 (type -> basetype pointer .)
+    FLOAT_CONST     reduce using rule 23 (type -> basetype pointer .)
+    NORMALSTRING    reduce using rule 23 (type -> basetype pointer .)
+    TIMES           shift and go to state 43
+
+  ! TIMES           [ reduce using rule 23 (type -> basetype pointer .) ]
+
+
+state 35
+
+    (19) pointer -> TIMES .
+
+    TIMES           reduce using rule 19 (pointer -> TIMES .)
+    ID              reduce using rule 19 (pointer -> TIMES .)
+    BAND            reduce using rule 19 (pointer -> TIMES .)
+    INT_CONST       reduce using rule 19 (pointer -> TIMES .)
+    CHAR_CONST      reduce using rule 19 (pointer -> TIMES .)
+    FLOAT_CONST     reduce using rule 19 (pointer -> TIMES .)
+    NORMALSTRING    reduce using rule 19 (pointer -> TIMES .)
+
+
+state 36
+
+    (17) funcdecl -> storage type . methodsymbol LPAREN param_list RPAREN
+    (85) methodsymbol -> . ID
+
+    ID              shift and go to state 45
+
+    methodsymbol                   shift and go to state 44
+
+state 37
+
+    (76) funcdef -> type methodsymbol LPAREN . param_list RPAREN compound_statement
+    (77) funcdef -> type methodsymbol LPAREN . RPAREN compound_statement
+    (18) funcdecl -> type methodsymbol LPAREN . param_list RPAREN
+    (69) param_list -> . param
+    (70) param_list -> . param COMMA param_list
+    (71) param_list -> . VOID
+    (68) param -> . type varsymbol
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    RPAREN          shift and go to state 48
+    VOID            shift and go to state 50
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    type                           shift and go to state 46
+    param_list                     shift and go to state 47
+    param                          shift and go to state 49
+    basetype                       shift and go to state 7
+
+state 38
+
+    (14) typedecl -> type cast_expr EQUALS . expression
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    cast_expr                      shift and go to state 51
+    expression                     shift and go to state 52
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 39
+
+    (15) arraydecl -> type varsymbol LBRACKET . INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> type varsymbol LBRACKET . INT_CONST RBRACKET
+
+    INT_CONST       shift and go to state 57
+
+
+state 40
+
+    (52) unary_expr -> unary_op primary_expr .
+
+    EQUALS          reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    SEMI            reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    PLUS            reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    MINUS           reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    TIMES           reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    DIVIDES         reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    GT              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    LT              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    LE              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    GE              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    EQ              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    NE              reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    LAND            reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    LOR             reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+    RPAREN          reduce using rule 52 (unary_expr -> unary_op primary_expr .)
+
+
+state 41
+
+    (48) primary_expr -> varsymbol .
+
+    EQUALS          reduce using rule 48 (primary_expr -> varsymbol .)
+    SEMI            reduce using rule 48 (primary_expr -> varsymbol .)
+    PLUS            reduce using rule 48 (primary_expr -> varsymbol .)
+    MINUS           reduce using rule 48 (primary_expr -> varsymbol .)
+    TIMES           reduce using rule 48 (primary_expr -> varsymbol .)
+    DIVIDES         reduce using rule 48 (primary_expr -> varsymbol .)
+    GT              reduce using rule 48 (primary_expr -> varsymbol .)
+    LT              reduce using rule 48 (primary_expr -> varsymbol .)
+    LE              reduce using rule 48 (primary_expr -> varsymbol .)
+    GE              reduce using rule 48 (primary_expr -> varsymbol .)
+    EQ              reduce using rule 48 (primary_expr -> varsymbol .)
+    NE              reduce using rule 48 (primary_expr -> varsymbol .)
+    LAND            reduce using rule 48 (primary_expr -> varsymbol .)
+    LOR             reduce using rule 48 (primary_expr -> varsymbol .)
+    RPAREN          reduce using rule 48 (primary_expr -> varsymbol .)
+
+
+state 42
+
+    (86) varsymbol -> ID .
+
+    EQUALS          reduce using rule 86 (varsymbol -> ID .)
+    SEMI            reduce using rule 86 (varsymbol -> ID .)
+    PLUS            reduce using rule 86 (varsymbol -> ID .)
+    MINUS           reduce using rule 86 (varsymbol -> ID .)
+    TIMES           reduce using rule 86 (varsymbol -> ID .)
+    DIVIDES         reduce using rule 86 (varsymbol -> ID .)
+    GT              reduce using rule 86 (varsymbol -> ID .)
+    LT              reduce using rule 86 (varsymbol -> ID .)
+    LE              reduce using rule 86 (varsymbol -> ID .)
+    GE              reduce using rule 86 (varsymbol -> ID .)
+    EQ              reduce using rule 86 (varsymbol -> ID .)
+    NE              reduce using rule 86 (varsymbol -> ID .)
+    LAND            reduce using rule 86 (varsymbol -> ID .)
+    LOR             reduce using rule 86 (varsymbol -> ID .)
+    RPAREN          reduce using rule 86 (varsymbol -> ID .)
+    COMMA           reduce using rule 86 (varsymbol -> ID .)
+
+
+state 43
+
+    (20) pointer -> pointer TIMES .
+
+    TIMES           reduce using rule 20 (pointer -> pointer TIMES .)
+    ID              reduce using rule 20 (pointer -> pointer TIMES .)
+    BAND            reduce using rule 20 (pointer -> pointer TIMES .)
+    INT_CONST       reduce using rule 20 (pointer -> pointer TIMES .)
+    CHAR_CONST      reduce using rule 20 (pointer -> pointer TIMES .)
+    FLOAT_CONST     reduce using rule 20 (pointer -> pointer TIMES .)
+    NORMALSTRING    reduce using rule 20 (pointer -> pointer TIMES .)
+
+
+state 44
+
+    (17) funcdecl -> storage type methodsymbol . LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 58
+
+
+state 45
+
+    (85) methodsymbol -> ID .
+
+    LPAREN          reduce using rule 85 (methodsymbol -> ID .)
+
+
+state 46
+
+    (68) param -> type . varsymbol
+    (86) varsymbol -> . ID
+
+    ID              shift and go to state 42
+
+    varsymbol                      shift and go to state 59
+
+state 47
+
+    (76) funcdef -> type methodsymbol LPAREN param_list . RPAREN compound_statement
+    (18) funcdecl -> type methodsymbol LPAREN param_list . RPAREN
+
+    RPAREN          shift and go to state 60
+
+
+state 48
+
+    (77) funcdef -> type methodsymbol LPAREN RPAREN . compound_statement
+    (29) compound_statement -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 62
+
+    compound_statement             shift and go to state 61
+
+state 49
+
+    (69) param_list -> param .
+    (70) param_list -> param . COMMA param_list
+
+    RPAREN          reduce using rule 69 (param_list -> param .)
+    COMMA           shift and go to state 63
+
+
+state 50
+
+    (71) param_list -> VOID .
+    (84) basetype -> VOID .
+
+    RPAREN          reduce using rule 71 (param_list -> VOID .)
+    TIMES           reduce using rule 84 (basetype -> VOID .)
+    ID              reduce using rule 84 (basetype -> VOID .)
+
+
+state 51
+
+    (66) binary_expr -> cast_expr .
+
+    PLUS            reduce using rule 66 (binary_expr -> cast_expr .)
+    MINUS           reduce using rule 66 (binary_expr -> cast_expr .)
+    TIMES           reduce using rule 66 (binary_expr -> cast_expr .)
+    DIVIDES         reduce using rule 66 (binary_expr -> cast_expr .)
+    GT              reduce using rule 66 (binary_expr -> cast_expr .)
+    LT              reduce using rule 66 (binary_expr -> cast_expr .)
+    LE              reduce using rule 66 (binary_expr -> cast_expr .)
+    GE              reduce using rule 66 (binary_expr -> cast_expr .)
+    EQ              reduce using rule 66 (binary_expr -> cast_expr .)
+    NE              reduce using rule 66 (binary_expr -> cast_expr .)
+    LAND            reduce using rule 66 (binary_expr -> cast_expr .)
+    LOR             reduce using rule 66 (binary_expr -> cast_expr .)
+    SEMI            reduce using rule 66 (binary_expr -> cast_expr .)
+    RPAREN          reduce using rule 66 (binary_expr -> cast_expr .)
+
+
+state 52
+
+    (14) typedecl -> type cast_expr EQUALS expression .
+
+    SEMI            reduce using rule 14 (typedecl -> type cast_expr EQUALS expression .)
+
+
+state 53
+
+    (44) expression -> binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    SEMI            reduce using rule 44 (expression -> binary_expr .)
+    RPAREN          reduce using rule 44 (expression -> binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+    EQ              shift and go to state 72
+    NE              shift and go to state 73
+    LAND            shift and go to state 74
+    LOR             shift and go to state 75
+
+
+state 54
+
+    (45) expression -> funccall_expr .
+    (67) binary_expr -> funccall_expr .
+
+  ! reduce/reduce conflict for SEMI resolved using rule 45 (expression -> funccall_expr .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 45 (expression -> funccall_expr .)
+    SEMI            reduce using rule 45 (expression -> funccall_expr .)
+    RPAREN          reduce using rule 45 (expression -> funccall_expr .)
+    PLUS            reduce using rule 67 (binary_expr -> funccall_expr .)
+    MINUS           reduce using rule 67 (binary_expr -> funccall_expr .)
+    TIMES           reduce using rule 67 (binary_expr -> funccall_expr .)
+    DIVIDES         reduce using rule 67 (binary_expr -> funccall_expr .)
+    GT              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LT              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    GE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    EQ              reduce using rule 67 (binary_expr -> funccall_expr .)
+    NE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LAND            reduce using rule 67 (binary_expr -> funccall_expr .)
+    LOR             reduce using rule 67 (binary_expr -> funccall_expr .)
+
+  ! SEMI            [ reduce using rule 67 (binary_expr -> funccall_expr .) ]
+  ! RPAREN          [ reduce using rule 67 (binary_expr -> funccall_expr .) ]
+
+
+state 55
+
+    (65) binary_expr -> LPAREN . binary_expr RPAREN
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 76
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 56
+
+    (78) funccall_expr -> methodsymbol . LPAREN argument_list RPAREN
+    (79) funccall_expr -> methodsymbol . LPAREN RPAREN
+
+    LPAREN          shift and go to state 78
+
+
+state 57
+
+    (15) arraydecl -> type varsymbol LBRACKET INT_CONST . RBRACKET EQUALS expression
+    (16) arraydecl -> type varsymbol LBRACKET INT_CONST . RBRACKET
+
+    RBRACKET        shift and go to state 79
+
+
+state 58
+
+    (17) funcdecl -> storage type methodsymbol LPAREN . param_list RPAREN
+    (69) param_list -> . param
+    (70) param_list -> . param COMMA param_list
+    (71) param_list -> . VOID
+    (68) param -> . type varsymbol
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    VOID            shift and go to state 50
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    type                           shift and go to state 46
+    param_list                     shift and go to state 80
+    param                          shift and go to state 49
+    basetype                       shift and go to state 7
+
+state 59
+
+    (68) param -> type varsymbol .
+
+    COMMA           reduce using rule 68 (param -> type varsymbol .)
+    RPAREN          reduce using rule 68 (param -> type varsymbol .)
+
+
+state 60
+
+    (76) funcdef -> type methodsymbol LPAREN param_list RPAREN . compound_statement
+    (18) funcdecl -> type methodsymbol LPAREN param_list RPAREN .
+    (29) compound_statement -> . LBRACE statement_list RBRACE
+
+    SEMI            reduce using rule 18 (funcdecl -> type methodsymbol LPAREN param_list RPAREN .)
+    LBRACE          shift and go to state 62
+
+    compound_statement             shift and go to state 81
+
+state 61
+
+    (77) funcdef -> type methodsymbol LPAREN RPAREN compound_statement .
+
+    INT             reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    CHAR            reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    FLOAT           reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    VOID            reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    EXTERN          reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    STATIC          reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+    $end            reduce using rule 77 (funcdef -> type methodsymbol LPAREN RPAREN compound_statement .)
+
+
+state 62
+
+    (29) compound_statement -> LBRACE . statement_list RBRACE
+    (5) statement_list -> . statement
+    (6) statement_list -> . statement statement_list
+    (7) statement -> . assignment_statement
+    (8) statement -> . declstmt
+    (9) statement -> . while_statement
+    (10) statement -> . funccall_stmt
+    (11) statement -> . jump_statement
+    (12) statement -> . selection_statement
+    (42) assignment_statement -> . assignment_expr SEMI
+    (28) declstmt -> . declaration SEMI
+    (30) while_statement -> . WHILE LPAREN expression RPAREN compound_statement
+    (80) funccall_stmt -> . funccall_expr SEMI
+    (37) jump_statement -> . return_statement
+    (38) jump_statement -> . continue_statement
+    (39) jump_statement -> . break_statement
+    (33) selection_statement -> . if_statement1
+    (34) selection_statement -> . if_statement2
+    (43) assignment_expr -> . cast_expr EQUALS expression
+    (25) declaration -> . typedecl
+    (26) declaration -> . arraydecl
+    (27) declaration -> . funcdecl
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (40) return_statement -> . RETURN expression SEMI
+    (41) return_statement -> . RETURN SEMI
+    (36) continue_statement -> . CONTINUE SEMI
+    (35) break_statement -> . BREAK SEMI
+    (31) if_statement1 -> . IF LPAREN expression RPAREN compound_statement ELSE compound_statement
+    (32) if_statement2 -> . IF LPAREN expression RPAREN compound_statement
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (13) typedecl -> . type cast_expr
+    (14) typedecl -> . type cast_expr EQUALS expression
+    (15) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET
+    (17) funcdecl -> . storage type methodsymbol LPAREN param_list RPAREN
+    (18) funcdecl -> . type methodsymbol LPAREN param_list RPAREN
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (21) storage -> . EXTERN
+    (22) storage -> . STATIC
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    WHILE           shift and go to state 91
+    RETURN          shift and go to state 99
+    CONTINUE        shift and go to state 100
+    BREAK           shift and go to state 101
+    IF              shift and go to state 102
+    ID              shift and go to state 23
+    EXTERN          shift and go to state 16
+    STATIC          shift and go to state 17
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+    VOID            shift and go to state 14
+
+    statement_list                 shift and go to state 82
+    statement                      shift and go to state 83
+    assignment_statement           shift and go to state 84
+    declstmt                       shift and go to state 85
+    while_statement                shift and go to state 86
+    funccall_stmt                  shift and go to state 87
+    jump_statement                 shift and go to state 88
+    selection_statement            shift and go to state 89
+    assignment_expr                shift and go to state 90
+    declaration                    shift and go to state 6
+    funccall_expr                  shift and go to state 92
+    return_statement               shift and go to state 93
+    continue_statement             shift and go to state 94
+    break_statement                shift and go to state 95
+    if_statement1                  shift and go to state 96
+    if_statement2                  shift and go to state 97
+    cast_expr                      shift and go to state 98
+    typedecl                       shift and go to state 8
+    arraydecl                      shift and go to state 9
+    funcdecl                       shift and go to state 10
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    type                           shift and go to state 103
+    varsymbol                      shift and go to state 41
+    storage                        shift and go to state 15
+    unary_op                       shift and go to state 26
+    constant                       shift and go to state 27
+    basetype                       shift and go to state 7
+
+state 63
+
+    (70) param_list -> param COMMA . param_list
+    (69) param_list -> . param
+    (70) param_list -> . param COMMA param_list
+    (71) param_list -> . VOID
+    (68) param -> . type varsymbol
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    VOID            shift and go to state 50
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    param                          shift and go to state 49
+    param_list                     shift and go to state 104
+    type                           shift and go to state 46
+    basetype                       shift and go to state 7
+
+state 64
+
+    (53) binary_expr -> binary_expr PLUS . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 105
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 65
+
+    (54) binary_expr -> binary_expr MINUS . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 106
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 66
+
+    (55) binary_expr -> binary_expr TIMES . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 107
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 67
+
+    (56) binary_expr -> binary_expr DIVIDES . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 108
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 68
+
+    (57) binary_expr -> binary_expr GT . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 109
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 69
+
+    (58) binary_expr -> binary_expr LT . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 110
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 70
+
+    (59) binary_expr -> binary_expr LE . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 111
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 71
+
+    (60) binary_expr -> binary_expr GE . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 112
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 72
+
+    (61) binary_expr -> binary_expr EQ . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 113
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 73
+
+    (62) binary_expr -> binary_expr NE . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 114
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 74
+
+    (63) binary_expr -> binary_expr LAND . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 115
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 75
+
+    (64) binary_expr -> binary_expr LOR . binary_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (85) methodsymbol -> . ID
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    binary_expr                    shift and go to state 116
+    cast_expr                      shift and go to state 51
+    funccall_expr                  shift and go to state 77
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    methodsymbol                   shift and go to state 56
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 76
+
+    (65) binary_expr -> LPAREN binary_expr . RPAREN
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    RPAREN          shift and go to state 117
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+    EQ              shift and go to state 72
+    NE              shift and go to state 73
+    LAND            shift and go to state 74
+    LOR             shift and go to state 75
+
+
+state 77
+
+    (67) binary_expr -> funccall_expr .
+
+    RPAREN          reduce using rule 67 (binary_expr -> funccall_expr .)
+    PLUS            reduce using rule 67 (binary_expr -> funccall_expr .)
+    MINUS           reduce using rule 67 (binary_expr -> funccall_expr .)
+    TIMES           reduce using rule 67 (binary_expr -> funccall_expr .)
+    DIVIDES         reduce using rule 67 (binary_expr -> funccall_expr .)
+    GT              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LT              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    GE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    EQ              reduce using rule 67 (binary_expr -> funccall_expr .)
+    NE              reduce using rule 67 (binary_expr -> funccall_expr .)
+    LAND            reduce using rule 67 (binary_expr -> funccall_expr .)
+    LOR             reduce using rule 67 (binary_expr -> funccall_expr .)
+    SEMI            reduce using rule 67 (binary_expr -> funccall_expr .)
+
+
+state 78
+
+    (78) funccall_expr -> methodsymbol LPAREN . argument_list RPAREN
+    (79) funccall_expr -> methodsymbol LPAREN . RPAREN
+    (74) argument_list -> . argument
+    (75) argument_list -> . argument COMMA argument_list
+    (72) argument -> . varsymbol
+    (73) argument -> . constant
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    RPAREN          shift and go to state 119
+    ID              shift and go to state 42
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    argument_list                  shift and go to state 118
+    argument                       shift and go to state 120
+    varsymbol                      shift and go to state 121
+    constant                       shift and go to state 122
+
+state 79
+
+    (15) arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET . EQUALS expression
+    (16) arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET .
+
+    EQUALS          shift and go to state 123
+    SEMI            reduce using rule 16 (arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET .)
+
+
+state 80
+
+    (17) funcdecl -> storage type methodsymbol LPAREN param_list . RPAREN
+
+    RPAREN          shift and go to state 124
+
+
+state 81
+
+    (76) funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .
+
+    INT             reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    CHAR            reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    FLOAT           reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    VOID            reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    EXTERN          reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    STATIC          reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+    $end            reduce using rule 76 (funcdef -> type methodsymbol LPAREN param_list RPAREN compound_statement .)
+
+
+state 82
+
+    (29) compound_statement -> LBRACE statement_list . RBRACE
+
+    RBRACE          shift and go to state 125
+
+
+state 83
+
+    (5) statement_list -> statement .
+    (6) statement_list -> statement . statement_list
+    (5) statement_list -> . statement
+    (6) statement_list -> . statement statement_list
+    (7) statement -> . assignment_statement
+    (8) statement -> . declstmt
+    (9) statement -> . while_statement
+    (10) statement -> . funccall_stmt
+    (11) statement -> . jump_statement
+    (12) statement -> . selection_statement
+    (42) assignment_statement -> . assignment_expr SEMI
+    (28) declstmt -> . declaration SEMI
+    (30) while_statement -> . WHILE LPAREN expression RPAREN compound_statement
+    (80) funccall_stmt -> . funccall_expr SEMI
+    (37) jump_statement -> . return_statement
+    (38) jump_statement -> . continue_statement
+    (39) jump_statement -> . break_statement
+    (33) selection_statement -> . if_statement1
+    (34) selection_statement -> . if_statement2
+    (43) assignment_expr -> . cast_expr EQUALS expression
+    (25) declaration -> . typedecl
+    (26) declaration -> . arraydecl
+    (27) declaration -> . funcdecl
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (40) return_statement -> . RETURN expression SEMI
+    (41) return_statement -> . RETURN SEMI
+    (36) continue_statement -> . CONTINUE SEMI
+    (35) break_statement -> . BREAK SEMI
+    (31) if_statement1 -> . IF LPAREN expression RPAREN compound_statement ELSE compound_statement
+    (32) if_statement2 -> . IF LPAREN expression RPAREN compound_statement
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (13) typedecl -> . type cast_expr
+    (14) typedecl -> . type cast_expr EQUALS expression
+    (15) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> . type varsymbol LBRACKET INT_CONST RBRACKET
+    (17) funcdecl -> . storage type methodsymbol LPAREN param_list RPAREN
+    (18) funcdecl -> . type methodsymbol LPAREN param_list RPAREN
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (21) storage -> . EXTERN
+    (22) storage -> . STATIC
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    RBRACE          reduce using rule 5 (statement_list -> statement .)
+    WHILE           shift and go to state 91
+    RETURN          shift and go to state 99
+    CONTINUE        shift and go to state 100
+    BREAK           shift and go to state 101
+    IF              shift and go to state 102
+    ID              shift and go to state 23
+    EXTERN          shift and go to state 16
+    STATIC          shift and go to state 17
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+    VOID            shift and go to state 14
+
+    statement                      shift and go to state 83
+    statement_list                 shift and go to state 126
+    assignment_statement           shift and go to state 84
+    declstmt                       shift and go to state 85
+    while_statement                shift and go to state 86
+    funccall_stmt                  shift and go to state 87
+    jump_statement                 shift and go to state 88
+    selection_statement            shift and go to state 89
+    assignment_expr                shift and go to state 90
+    declaration                    shift and go to state 6
+    funccall_expr                  shift and go to state 92
+    return_statement               shift and go to state 93
+    continue_statement             shift and go to state 94
+    break_statement                shift and go to state 95
+    if_statement1                  shift and go to state 96
+    if_statement2                  shift and go to state 97
+    cast_expr                      shift and go to state 98
+    typedecl                       shift and go to state 8
+    arraydecl                      shift and go to state 9
+    funcdecl                       shift and go to state 10
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    type                           shift and go to state 103
+    varsymbol                      shift and go to state 41
+    storage                        shift and go to state 15
+    unary_op                       shift and go to state 26
+    constant                       shift and go to state 27
+    basetype                       shift and go to state 7
+
+state 84
+
+    (7) statement -> assignment_statement .
+
+    WHILE           reduce using rule 7 (statement -> assignment_statement .)
+    RETURN          reduce using rule 7 (statement -> assignment_statement .)
+    CONTINUE        reduce using rule 7 (statement -> assignment_statement .)
+    BREAK           reduce using rule 7 (statement -> assignment_statement .)
+    IF              reduce using rule 7 (statement -> assignment_statement .)
+    ID              reduce using rule 7 (statement -> assignment_statement .)
+    EXTERN          reduce using rule 7 (statement -> assignment_statement .)
+    STATIC          reduce using rule 7 (statement -> assignment_statement .)
+    BAND            reduce using rule 7 (statement -> assignment_statement .)
+    TIMES           reduce using rule 7 (statement -> assignment_statement .)
+    INT_CONST       reduce using rule 7 (statement -> assignment_statement .)
+    CHAR_CONST      reduce using rule 7 (statement -> assignment_statement .)
+    FLOAT_CONST     reduce using rule 7 (statement -> assignment_statement .)
+    NORMALSTRING    reduce using rule 7 (statement -> assignment_statement .)
+    INT             reduce using rule 7 (statement -> assignment_statement .)
+    CHAR            reduce using rule 7 (statement -> assignment_statement .)
+    FLOAT           reduce using rule 7 (statement -> assignment_statement .)
+    VOID            reduce using rule 7 (statement -> assignment_statement .)
+    RBRACE          reduce using rule 7 (statement -> assignment_statement .)
+
+
+state 85
+
+    (8) statement -> declstmt .
+
+    WHILE           reduce using rule 8 (statement -> declstmt .)
+    RETURN          reduce using rule 8 (statement -> declstmt .)
+    CONTINUE        reduce using rule 8 (statement -> declstmt .)
+    BREAK           reduce using rule 8 (statement -> declstmt .)
+    IF              reduce using rule 8 (statement -> declstmt .)
+    ID              reduce using rule 8 (statement -> declstmt .)
+    EXTERN          reduce using rule 8 (statement -> declstmt .)
+    STATIC          reduce using rule 8 (statement -> declstmt .)
+    BAND            reduce using rule 8 (statement -> declstmt .)
+    TIMES           reduce using rule 8 (statement -> declstmt .)
+    INT_CONST       reduce using rule 8 (statement -> declstmt .)
+    CHAR_CONST      reduce using rule 8 (statement -> declstmt .)
+    FLOAT_CONST     reduce using rule 8 (statement -> declstmt .)
+    NORMALSTRING    reduce using rule 8 (statement -> declstmt .)
+    INT             reduce using rule 8 (statement -> declstmt .)
+    CHAR            reduce using rule 8 (statement -> declstmt .)
+    FLOAT           reduce using rule 8 (statement -> declstmt .)
+    VOID            reduce using rule 8 (statement -> declstmt .)
+    RBRACE          reduce using rule 8 (statement -> declstmt .)
+
+
+state 86
+
+    (9) statement -> while_statement .
+
+    WHILE           reduce using rule 9 (statement -> while_statement .)
+    RETURN          reduce using rule 9 (statement -> while_statement .)
+    CONTINUE        reduce using rule 9 (statement -> while_statement .)
+    BREAK           reduce using rule 9 (statement -> while_statement .)
+    IF              reduce using rule 9 (statement -> while_statement .)
+    ID              reduce using rule 9 (statement -> while_statement .)
+    EXTERN          reduce using rule 9 (statement -> while_statement .)
+    STATIC          reduce using rule 9 (statement -> while_statement .)
+    BAND            reduce using rule 9 (statement -> while_statement .)
+    TIMES           reduce using rule 9 (statement -> while_statement .)
+    INT_CONST       reduce using rule 9 (statement -> while_statement .)
+    CHAR_CONST      reduce using rule 9 (statement -> while_statement .)
+    FLOAT_CONST     reduce using rule 9 (statement -> while_statement .)
+    NORMALSTRING    reduce using rule 9 (statement -> while_statement .)
+    INT             reduce using rule 9 (statement -> while_statement .)
+    CHAR            reduce using rule 9 (statement -> while_statement .)
+    FLOAT           reduce using rule 9 (statement -> while_statement .)
+    VOID            reduce using rule 9 (statement -> while_statement .)
+    RBRACE          reduce using rule 9 (statement -> while_statement .)
+
+
+state 87
+
+    (10) statement -> funccall_stmt .
+
+    WHILE           reduce using rule 10 (statement -> funccall_stmt .)
+    RETURN          reduce using rule 10 (statement -> funccall_stmt .)
+    CONTINUE        reduce using rule 10 (statement -> funccall_stmt .)
+    BREAK           reduce using rule 10 (statement -> funccall_stmt .)
+    IF              reduce using rule 10 (statement -> funccall_stmt .)
+    ID              reduce using rule 10 (statement -> funccall_stmt .)
+    EXTERN          reduce using rule 10 (statement -> funccall_stmt .)
+    STATIC          reduce using rule 10 (statement -> funccall_stmt .)
+    BAND            reduce using rule 10 (statement -> funccall_stmt .)
+    TIMES           reduce using rule 10 (statement -> funccall_stmt .)
+    INT_CONST       reduce using rule 10 (statement -> funccall_stmt .)
+    CHAR_CONST      reduce using rule 10 (statement -> funccall_stmt .)
+    FLOAT_CONST     reduce using rule 10 (statement -> funccall_stmt .)
+    NORMALSTRING    reduce using rule 10 (statement -> funccall_stmt .)
+    INT             reduce using rule 10 (statement -> funccall_stmt .)
+    CHAR            reduce using rule 10 (statement -> funccall_stmt .)
+    FLOAT           reduce using rule 10 (statement -> funccall_stmt .)
+    VOID            reduce using rule 10 (statement -> funccall_stmt .)
+    RBRACE          reduce using rule 10 (statement -> funccall_stmt .)
+
+
+state 88
+
+    (11) statement -> jump_statement .
+
+    WHILE           reduce using rule 11 (statement -> jump_statement .)
+    RETURN          reduce using rule 11 (statement -> jump_statement .)
+    CONTINUE        reduce using rule 11 (statement -> jump_statement .)
+    BREAK           reduce using rule 11 (statement -> jump_statement .)
+    IF              reduce using rule 11 (statement -> jump_statement .)
+    ID              reduce using rule 11 (statement -> jump_statement .)
+    EXTERN          reduce using rule 11 (statement -> jump_statement .)
+    STATIC          reduce using rule 11 (statement -> jump_statement .)
+    BAND            reduce using rule 11 (statement -> jump_statement .)
+    TIMES           reduce using rule 11 (statement -> jump_statement .)
+    INT_CONST       reduce using rule 11 (statement -> jump_statement .)
+    CHAR_CONST      reduce using rule 11 (statement -> jump_statement .)
+    FLOAT_CONST     reduce using rule 11 (statement -> jump_statement .)
+    NORMALSTRING    reduce using rule 11 (statement -> jump_statement .)
+    INT             reduce using rule 11 (statement -> jump_statement .)
+    CHAR            reduce using rule 11 (statement -> jump_statement .)
+    FLOAT           reduce using rule 11 (statement -> jump_statement .)
+    VOID            reduce using rule 11 (statement -> jump_statement .)
+    RBRACE          reduce using rule 11 (statement -> jump_statement .)
+
+
+state 89
+
+    (12) statement -> selection_statement .
+
+    WHILE           reduce using rule 12 (statement -> selection_statement .)
+    RETURN          reduce using rule 12 (statement -> selection_statement .)
+    CONTINUE        reduce using rule 12 (statement -> selection_statement .)
+    BREAK           reduce using rule 12 (statement -> selection_statement .)
+    IF              reduce using rule 12 (statement -> selection_statement .)
+    ID              reduce using rule 12 (statement -> selection_statement .)
+    EXTERN          reduce using rule 12 (statement -> selection_statement .)
+    STATIC          reduce using rule 12 (statement -> selection_statement .)
+    BAND            reduce using rule 12 (statement -> selection_statement .)
+    TIMES           reduce using rule 12 (statement -> selection_statement .)
+    INT_CONST       reduce using rule 12 (statement -> selection_statement .)
+    CHAR_CONST      reduce using rule 12 (statement -> selection_statement .)
+    FLOAT_CONST     reduce using rule 12 (statement -> selection_statement .)
+    NORMALSTRING    reduce using rule 12 (statement -> selection_statement .)
+    INT             reduce using rule 12 (statement -> selection_statement .)
+    CHAR            reduce using rule 12 (statement -> selection_statement .)
+    FLOAT           reduce using rule 12 (statement -> selection_statement .)
+    VOID            reduce using rule 12 (statement -> selection_statement .)
+    RBRACE          reduce using rule 12 (statement -> selection_statement .)
+
+
+state 90
+
+    (42) assignment_statement -> assignment_expr . SEMI
+
+    SEMI            shift and go to state 127
+
+
+state 91
+
+    (30) while_statement -> WHILE . LPAREN expression RPAREN compound_statement
+
+    LPAREN          shift and go to state 128
+
+
+state 92
+
+    (80) funccall_stmt -> funccall_expr . SEMI
+
+    SEMI            shift and go to state 129
+
+
+state 93
+
+    (37) jump_statement -> return_statement .
+
+    WHILE           reduce using rule 37 (jump_statement -> return_statement .)
+    RETURN          reduce using rule 37 (jump_statement -> return_statement .)
+    CONTINUE        reduce using rule 37 (jump_statement -> return_statement .)
+    BREAK           reduce using rule 37 (jump_statement -> return_statement .)
+    IF              reduce using rule 37 (jump_statement -> return_statement .)
+    ID              reduce using rule 37 (jump_statement -> return_statement .)
+    EXTERN          reduce using rule 37 (jump_statement -> return_statement .)
+    STATIC          reduce using rule 37 (jump_statement -> return_statement .)
+    BAND            reduce using rule 37 (jump_statement -> return_statement .)
+    TIMES           reduce using rule 37 (jump_statement -> return_statement .)
+    INT_CONST       reduce using rule 37 (jump_statement -> return_statement .)
+    CHAR_CONST      reduce using rule 37 (jump_statement -> return_statement .)
+    FLOAT_CONST     reduce using rule 37 (jump_statement -> return_statement .)
+    NORMALSTRING    reduce using rule 37 (jump_statement -> return_statement .)
+    INT             reduce using rule 37 (jump_statement -> return_statement .)
+    CHAR            reduce using rule 37 (jump_statement -> return_statement .)
+    FLOAT           reduce using rule 37 (jump_statement -> return_statement .)
+    VOID            reduce using rule 37 (jump_statement -> return_statement .)
+    RBRACE          reduce using rule 37 (jump_statement -> return_statement .)
+
+
+state 94
+
+    (38) jump_statement -> continue_statement .
+
+    WHILE           reduce using rule 38 (jump_statement -> continue_statement .)
+    RETURN          reduce using rule 38 (jump_statement -> continue_statement .)
+    CONTINUE        reduce using rule 38 (jump_statement -> continue_statement .)
+    BREAK           reduce using rule 38 (jump_statement -> continue_statement .)
+    IF              reduce using rule 38 (jump_statement -> continue_statement .)
+    ID              reduce using rule 38 (jump_statement -> continue_statement .)
+    EXTERN          reduce using rule 38 (jump_statement -> continue_statement .)
+    STATIC          reduce using rule 38 (jump_statement -> continue_statement .)
+    BAND            reduce using rule 38 (jump_statement -> continue_statement .)
+    TIMES           reduce using rule 38 (jump_statement -> continue_statement .)
+    INT_CONST       reduce using rule 38 (jump_statement -> continue_statement .)
+    CHAR_CONST      reduce using rule 38 (jump_statement -> continue_statement .)
+    FLOAT_CONST     reduce using rule 38 (jump_statement -> continue_statement .)
+    NORMALSTRING    reduce using rule 38 (jump_statement -> continue_statement .)
+    INT             reduce using rule 38 (jump_statement -> continue_statement .)
+    CHAR            reduce using rule 38 (jump_statement -> continue_statement .)
+    FLOAT           reduce using rule 38 (jump_statement -> continue_statement .)
+    VOID            reduce using rule 38 (jump_statement -> continue_statement .)
+    RBRACE          reduce using rule 38 (jump_statement -> continue_statement .)
+
+
+state 95
+
+    (39) jump_statement -> break_statement .
+
+    WHILE           reduce using rule 39 (jump_statement -> break_statement .)
+    RETURN          reduce using rule 39 (jump_statement -> break_statement .)
+    CONTINUE        reduce using rule 39 (jump_statement -> break_statement .)
+    BREAK           reduce using rule 39 (jump_statement -> break_statement .)
+    IF              reduce using rule 39 (jump_statement -> break_statement .)
+    ID              reduce using rule 39 (jump_statement -> break_statement .)
+    EXTERN          reduce using rule 39 (jump_statement -> break_statement .)
+    STATIC          reduce using rule 39 (jump_statement -> break_statement .)
+    BAND            reduce using rule 39 (jump_statement -> break_statement .)
+    TIMES           reduce using rule 39 (jump_statement -> break_statement .)
+    INT_CONST       reduce using rule 39 (jump_statement -> break_statement .)
+    CHAR_CONST      reduce using rule 39 (jump_statement -> break_statement .)
+    FLOAT_CONST     reduce using rule 39 (jump_statement -> break_statement .)
+    NORMALSTRING    reduce using rule 39 (jump_statement -> break_statement .)
+    INT             reduce using rule 39 (jump_statement -> break_statement .)
+    CHAR            reduce using rule 39 (jump_statement -> break_statement .)
+    FLOAT           reduce using rule 39 (jump_statement -> break_statement .)
+    VOID            reduce using rule 39 (jump_statement -> break_statement .)
+    RBRACE          reduce using rule 39 (jump_statement -> break_statement .)
+
+
+state 96
+
+    (33) selection_statement -> if_statement1 .
+
+    WHILE           reduce using rule 33 (selection_statement -> if_statement1 .)
+    RETURN          reduce using rule 33 (selection_statement -> if_statement1 .)
+    CONTINUE        reduce using rule 33 (selection_statement -> if_statement1 .)
+    BREAK           reduce using rule 33 (selection_statement -> if_statement1 .)
+    IF              reduce using rule 33 (selection_statement -> if_statement1 .)
+    ID              reduce using rule 33 (selection_statement -> if_statement1 .)
+    EXTERN          reduce using rule 33 (selection_statement -> if_statement1 .)
+    STATIC          reduce using rule 33 (selection_statement -> if_statement1 .)
+    BAND            reduce using rule 33 (selection_statement -> if_statement1 .)
+    TIMES           reduce using rule 33 (selection_statement -> if_statement1 .)
+    INT_CONST       reduce using rule 33 (selection_statement -> if_statement1 .)
+    CHAR_CONST      reduce using rule 33 (selection_statement -> if_statement1 .)
+    FLOAT_CONST     reduce using rule 33 (selection_statement -> if_statement1 .)
+    NORMALSTRING    reduce using rule 33 (selection_statement -> if_statement1 .)
+    INT             reduce using rule 33 (selection_statement -> if_statement1 .)
+    CHAR            reduce using rule 33 (selection_statement -> if_statement1 .)
+    FLOAT           reduce using rule 33 (selection_statement -> if_statement1 .)
+    VOID            reduce using rule 33 (selection_statement -> if_statement1 .)
+    RBRACE          reduce using rule 33 (selection_statement -> if_statement1 .)
+
+
+state 97
+
+    (34) selection_statement -> if_statement2 .
+
+    WHILE           reduce using rule 34 (selection_statement -> if_statement2 .)
+    RETURN          reduce using rule 34 (selection_statement -> if_statement2 .)
+    CONTINUE        reduce using rule 34 (selection_statement -> if_statement2 .)
+    BREAK           reduce using rule 34 (selection_statement -> if_statement2 .)
+    IF              reduce using rule 34 (selection_statement -> if_statement2 .)
+    ID              reduce using rule 34 (selection_statement -> if_statement2 .)
+    EXTERN          reduce using rule 34 (selection_statement -> if_statement2 .)
+    STATIC          reduce using rule 34 (selection_statement -> if_statement2 .)
+    BAND            reduce using rule 34 (selection_statement -> if_statement2 .)
+    TIMES           reduce using rule 34 (selection_statement -> if_statement2 .)
+    INT_CONST       reduce using rule 34 (selection_statement -> if_statement2 .)
+    CHAR_CONST      reduce using rule 34 (selection_statement -> if_statement2 .)
+    FLOAT_CONST     reduce using rule 34 (selection_statement -> if_statement2 .)
+    NORMALSTRING    reduce using rule 34 (selection_statement -> if_statement2 .)
+    INT             reduce using rule 34 (selection_statement -> if_statement2 .)
+    CHAR            reduce using rule 34 (selection_statement -> if_statement2 .)
+    FLOAT           reduce using rule 34 (selection_statement -> if_statement2 .)
+    VOID            reduce using rule 34 (selection_statement -> if_statement2 .)
+    RBRACE          reduce using rule 34 (selection_statement -> if_statement2 .)
+
+
+state 98
+
+    (43) assignment_expr -> cast_expr . EQUALS expression
+
+    EQUALS          shift and go to state 130
+
+
+state 99
+
+    (40) return_statement -> RETURN . expression SEMI
+    (41) return_statement -> RETURN . SEMI
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    SEMI            shift and go to state 132
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    expression                     shift and go to state 131
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    cast_expr                      shift and go to state 51
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 100
+
+    (36) continue_statement -> CONTINUE . SEMI
+
+    SEMI            shift and go to state 133
+
+
+state 101
+
+    (35) break_statement -> BREAK . SEMI
+
+    SEMI            shift and go to state 134
+
+
+state 102
+
+    (31) if_statement1 -> IF . LPAREN expression RPAREN compound_statement ELSE compound_statement
+    (32) if_statement2 -> IF . LPAREN expression RPAREN compound_statement
+
+    LPAREN          shift and go to state 135
+
+
+state 103
+
+    (13) typedecl -> type . cast_expr
+    (14) typedecl -> type . cast_expr EQUALS expression
+    (15) arraydecl -> type . varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression
+    (16) arraydecl -> type . varsymbol LBRACKET INT_CONST RBRACKET
+    (18) funcdecl -> type . methodsymbol LPAREN param_list RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (86) varsymbol -> . ID
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    ID              shift and go to state 137
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    cast_expr                      shift and go to state 20
+    varsymbol                      shift and go to state 21
+    methodsymbol                   shift and go to state 136
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    constant                       shift and go to state 27
+
+state 104
+
+    (70) param_list -> param COMMA param_list .
+
+    RPAREN          reduce using rule 70 (param_list -> param COMMA param_list .)
+
+
+state 105
+
+    (53) binary_expr -> binary_expr PLUS binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    PLUS            reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    MINUS           reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    GT              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    LT              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    LE              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    GE              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    EQ              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    NE              reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    LAND            reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    LOR             reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    SEMI            reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    RPAREN          reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .)
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! TIMES           [ reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 53 (binary_expr -> binary_expr PLUS binary_expr .) ]
+  ! PLUS            [ shift and go to state 64 ]
+  ! MINUS           [ shift and go to state 65 ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 106
+
+    (54) binary_expr -> binary_expr MINUS binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    PLUS            reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    MINUS           reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    GT              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    LT              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    LE              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    GE              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    EQ              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    NE              reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    LAND            reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    LOR             reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    SEMI            reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    RPAREN          reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .)
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! TIMES           [ reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 54 (binary_expr -> binary_expr MINUS binary_expr .) ]
+  ! PLUS            [ shift and go to state 64 ]
+  ! MINUS           [ shift and go to state 65 ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 107
+
+    (55) binary_expr -> binary_expr TIMES binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    PLUS            reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    MINUS           reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    TIMES           reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    DIVIDES         reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    GT              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    LT              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    LE              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    GE              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    EQ              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    NE              reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    LAND            reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    LOR             reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    SEMI            reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+    RPAREN          reduce using rule 55 (binary_expr -> binary_expr TIMES binary_expr .)
+
+  ! PLUS            [ shift and go to state 64 ]
+  ! MINUS           [ shift and go to state 65 ]
+  ! TIMES           [ shift and go to state 66 ]
+  ! DIVIDES         [ shift and go to state 67 ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 108
+
+    (56) binary_expr -> binary_expr DIVIDES binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    PLUS            reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    MINUS           reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    TIMES           reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    DIVIDES         reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    GT              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    LT              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    LE              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    GE              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    EQ              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    NE              reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    LAND            reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    LOR             reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    SEMI            reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+    RPAREN          reduce using rule 56 (binary_expr -> binary_expr DIVIDES binary_expr .)
+
+  ! PLUS            [ shift and go to state 64 ]
+  ! MINUS           [ shift and go to state 65 ]
+  ! TIMES           [ shift and go to state 66 ]
+  ! DIVIDES         [ shift and go to state 67 ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 109
+
+    (57) binary_expr -> binary_expr GT binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    GT              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    LT              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    LE              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    GE              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    EQ              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    NE              reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    LAND            reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    LOR             reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    SEMI            reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    RPAREN          reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! PLUS            [ reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .) ]
+  ! MINUS           [ reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .) ]
+  ! TIMES           [ reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 57 (binary_expr -> binary_expr GT binary_expr .) ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 110
+
+    (58) binary_expr -> binary_expr LT binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    GT              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    LT              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    LE              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    GE              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    EQ              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    NE              reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    LAND            reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    LOR             reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    SEMI            reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    RPAREN          reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! PLUS            [ reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .) ]
+  ! MINUS           [ reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .) ]
+  ! TIMES           [ reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 58 (binary_expr -> binary_expr LT binary_expr .) ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 111
+
+    (59) binary_expr -> binary_expr LE binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    GT              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    LT              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    LE              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    GE              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    EQ              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    NE              reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    LAND            reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    LOR             reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    SEMI            reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    RPAREN          reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! PLUS            [ reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .) ]
+  ! MINUS           [ reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .) ]
+  ! TIMES           [ reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 59 (binary_expr -> binary_expr LE binary_expr .) ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 112
+
+    (60) binary_expr -> binary_expr GE binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    GT              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    LT              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    LE              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    GE              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    EQ              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    NE              reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    LAND            reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    LOR             reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    SEMI            reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    RPAREN          reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+
+  ! PLUS            [ reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .) ]
+  ! MINUS           [ reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .) ]
+  ! TIMES           [ reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 60 (binary_expr -> binary_expr GE binary_expr .) ]
+  ! GT              [ shift and go to state 68 ]
+  ! LT              [ shift and go to state 69 ]
+  ! LE              [ shift and go to state 70 ]
+  ! GE              [ shift and go to state 71 ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 113
+
+    (61) binary_expr -> binary_expr EQ binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDES resolved as shift
+  ! shift/reduce conflict for GT resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LE resolved as shift
+  ! shift/reduce conflict for GE resolved as shift
+  ! shift/reduce conflict for EQ resolved as shift
+  ! shift/reduce conflict for NE resolved as shift
+  ! shift/reduce conflict for LAND resolved as shift
+  ! shift/reduce conflict for LOR resolved as shift
+    SEMI            reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .)
+    RPAREN          reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+    EQ              shift and go to state 72
+    NE              shift and go to state 73
+    LAND            shift and go to state 74
+    LOR             shift and go to state 75
+
+  ! PLUS            [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! MINUS           [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! TIMES           [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! GT              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! LT              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! LE              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! GE              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! EQ              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! NE              [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! LAND            [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+  ! LOR             [ reduce using rule 61 (binary_expr -> binary_expr EQ binary_expr .) ]
+
+
+state 114
+
+    (62) binary_expr -> binary_expr NE binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    EQ              reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    NE              reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    LAND            reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    LOR             reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    SEMI            reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    RPAREN          reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+
+  ! PLUS            [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! MINUS           [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! TIMES           [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! GT              [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! LT              [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! LE              [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! GE              [ reduce using rule 62 (binary_expr -> binary_expr NE binary_expr .) ]
+  ! EQ              [ shift and go to state 72 ]
+  ! NE              [ shift and go to state 73 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 115
+
+    (63) binary_expr -> binary_expr LAND binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    EQ              reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .)
+    LAND            reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .)
+    LOR             reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .)
+    SEMI            reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .)
+    RPAREN          reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+    NE              shift and go to state 73
+
+  ! PLUS            [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! MINUS           [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! TIMES           [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! GT              [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! LT              [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! LE              [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! GE              [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! NE              [ reduce using rule 63 (binary_expr -> binary_expr LAND binary_expr .) ]
+  ! EQ              [ shift and go to state 72 ]
+  ! LAND            [ shift and go to state 74 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 116
+
+    (64) binary_expr -> binary_expr LOR binary_expr .
+    (53) binary_expr -> binary_expr . PLUS binary_expr
+    (54) binary_expr -> binary_expr . MINUS binary_expr
+    (55) binary_expr -> binary_expr . TIMES binary_expr
+    (56) binary_expr -> binary_expr . DIVIDES binary_expr
+    (57) binary_expr -> binary_expr . GT binary_expr
+    (58) binary_expr -> binary_expr . LT binary_expr
+    (59) binary_expr -> binary_expr . LE binary_expr
+    (60) binary_expr -> binary_expr . GE binary_expr
+    (61) binary_expr -> binary_expr . EQ binary_expr
+    (62) binary_expr -> binary_expr . NE binary_expr
+    (63) binary_expr -> binary_expr . LAND binary_expr
+    (64) binary_expr -> binary_expr . LOR binary_expr
+
+    EQ              reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .)
+    LOR             reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .)
+    SEMI            reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .)
+    RPAREN          reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .)
+    PLUS            shift and go to state 64
+    MINUS           shift and go to state 65
+    TIMES           shift and go to state 66
+    DIVIDES         shift and go to state 67
+    GT              shift and go to state 68
+    LT              shift and go to state 69
+    LE              shift and go to state 70
+    GE              shift and go to state 71
+    NE              shift and go to state 73
+    LAND            shift and go to state 74
+
+  ! PLUS            [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! MINUS           [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! TIMES           [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! DIVIDES         [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! GT              [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! LT              [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! LE              [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! GE              [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! NE              [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! LAND            [ reduce using rule 64 (binary_expr -> binary_expr LOR binary_expr .) ]
+  ! EQ              [ shift and go to state 72 ]
+  ! LOR             [ shift and go to state 75 ]
+
+
+state 117
+
+    (65) binary_expr -> LPAREN binary_expr RPAREN .
+
+    PLUS            reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    MINUS           reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    TIMES           reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    DIVIDES         reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    GT              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    LT              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    LE              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    GE              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    EQ              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    NE              reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    LAND            reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    LOR             reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    SEMI            reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+    RPAREN          reduce using rule 65 (binary_expr -> LPAREN binary_expr RPAREN .)
+
+
+state 118
+
+    (78) funccall_expr -> methodsymbol LPAREN argument_list . RPAREN
+
+    RPAREN          shift and go to state 138
+
+
+state 119
+
+    (79) funccall_expr -> methodsymbol LPAREN RPAREN .
+
+    SEMI            reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    PLUS            reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    MINUS           reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    TIMES           reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    DIVIDES         reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    GT              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    LT              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    LE              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    GE              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    EQ              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    NE              reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    LAND            reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    LOR             reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+    RPAREN          reduce using rule 79 (funccall_expr -> methodsymbol LPAREN RPAREN .)
+
+
+state 120
+
+    (74) argument_list -> argument .
+    (75) argument_list -> argument . COMMA argument_list
+
+    RPAREN          reduce using rule 74 (argument_list -> argument .)
+    COMMA           shift and go to state 139
+
+
+state 121
+
+    (72) argument -> varsymbol .
+
+    COMMA           reduce using rule 72 (argument -> varsymbol .)
+    RPAREN          reduce using rule 72 (argument -> varsymbol .)
+
+
+state 122
+
+    (73) argument -> constant .
+
+    COMMA           reduce using rule 73 (argument -> constant .)
+    RPAREN          reduce using rule 73 (argument -> constant .)
+
+
+state 123
+
+    (15) arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET EQUALS . expression
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    varsymbol                      shift and go to state 41
+    expression                     shift and go to state 140
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    cast_expr                      shift and go to state 51
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    constant                       shift and go to state 27
+
+state 124
+
+    (17) funcdecl -> storage type methodsymbol LPAREN param_list RPAREN .
+
+    SEMI            reduce using rule 17 (funcdecl -> storage type methodsymbol LPAREN param_list RPAREN .)
+
+
+state 125
+
+    (29) compound_statement -> LBRACE statement_list RBRACE .
+
+    INT             reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    CHAR            reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    FLOAT           reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    VOID            reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    EXTERN          reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    STATIC          reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    $end            reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    WHILE           reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    RETURN          reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    CONTINUE        reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    BREAK           reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    IF              reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    ID              reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    BAND            reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    TIMES           reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    INT_CONST       reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    CHAR_CONST      reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    FLOAT_CONST     reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    NORMALSTRING    reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    RBRACE          reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+    ELSE            reduce using rule 29 (compound_statement -> LBRACE statement_list RBRACE .)
+
+
+state 126
+
+    (6) statement_list -> statement statement_list .
+
+    RBRACE          reduce using rule 6 (statement_list -> statement statement_list .)
+
+
+state 127
+
+    (42) assignment_statement -> assignment_expr SEMI .
+
+    WHILE           reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    RETURN          reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    CONTINUE        reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    BREAK           reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    IF              reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    ID              reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    EXTERN          reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    STATIC          reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    BAND            reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    TIMES           reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    INT_CONST       reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    CHAR_CONST      reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    FLOAT_CONST     reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    NORMALSTRING    reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    INT             reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    CHAR            reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    FLOAT           reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    VOID            reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+    RBRACE          reduce using rule 42 (assignment_statement -> assignment_expr SEMI .)
+
+
+state 128
+
+    (30) while_statement -> WHILE LPAREN . expression RPAREN compound_statement
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    expression                     shift and go to state 141
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    cast_expr                      shift and go to state 51
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 129
+
+    (80) funccall_stmt -> funccall_expr SEMI .
+
+    WHILE           reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    RETURN          reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    CONTINUE        reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    BREAK           reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    IF              reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    ID              reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    EXTERN          reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    STATIC          reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    BAND            reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    TIMES           reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    INT_CONST       reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    CHAR_CONST      reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    FLOAT_CONST     reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    NORMALSTRING    reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    INT             reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    CHAR            reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    FLOAT           reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    VOID            reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+    RBRACE          reduce using rule 80 (funccall_stmt -> funccall_expr SEMI .)
+
+
+state 130
+
+    (43) assignment_expr -> cast_expr EQUALS . expression
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    cast_expr                      shift and go to state 51
+    expression                     shift and go to state 142
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 131
+
+    (40) return_statement -> RETURN expression . SEMI
+
+    SEMI            shift and go to state 143
+
+
+state 132
+
+    (41) return_statement -> RETURN SEMI .
+
+    WHILE           reduce using rule 41 (return_statement -> RETURN SEMI .)
+    RETURN          reduce using rule 41 (return_statement -> RETURN SEMI .)
+    CONTINUE        reduce using rule 41 (return_statement -> RETURN SEMI .)
+    BREAK           reduce using rule 41 (return_statement -> RETURN SEMI .)
+    IF              reduce using rule 41 (return_statement -> RETURN SEMI .)
+    ID              reduce using rule 41 (return_statement -> RETURN SEMI .)
+    EXTERN          reduce using rule 41 (return_statement -> RETURN SEMI .)
+    STATIC          reduce using rule 41 (return_statement -> RETURN SEMI .)
+    BAND            reduce using rule 41 (return_statement -> RETURN SEMI .)
+    TIMES           reduce using rule 41 (return_statement -> RETURN SEMI .)
+    INT_CONST       reduce using rule 41 (return_statement -> RETURN SEMI .)
+    CHAR_CONST      reduce using rule 41 (return_statement -> RETURN SEMI .)
+    FLOAT_CONST     reduce using rule 41 (return_statement -> RETURN SEMI .)
+    NORMALSTRING    reduce using rule 41 (return_statement -> RETURN SEMI .)
+    INT             reduce using rule 41 (return_statement -> RETURN SEMI .)
+    CHAR            reduce using rule 41 (return_statement -> RETURN SEMI .)
+    FLOAT           reduce using rule 41 (return_statement -> RETURN SEMI .)
+    VOID            reduce using rule 41 (return_statement -> RETURN SEMI .)
+    RBRACE          reduce using rule 41 (return_statement -> RETURN SEMI .)
+
+
+state 133
+
+    (36) continue_statement -> CONTINUE SEMI .
+
+    WHILE           reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    RETURN          reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    CONTINUE        reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    BREAK           reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    IF              reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    ID              reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    EXTERN          reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    STATIC          reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    BAND            reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    TIMES           reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    INT_CONST       reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    CHAR_CONST      reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    FLOAT_CONST     reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    NORMALSTRING    reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    INT             reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    CHAR            reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    FLOAT           reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    VOID            reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+    RBRACE          reduce using rule 36 (continue_statement -> CONTINUE SEMI .)
+
+
+state 134
+
+    (35) break_statement -> BREAK SEMI .
+
+    WHILE           reduce using rule 35 (break_statement -> BREAK SEMI .)
+    RETURN          reduce using rule 35 (break_statement -> BREAK SEMI .)
+    CONTINUE        reduce using rule 35 (break_statement -> BREAK SEMI .)
+    BREAK           reduce using rule 35 (break_statement -> BREAK SEMI .)
+    IF              reduce using rule 35 (break_statement -> BREAK SEMI .)
+    ID              reduce using rule 35 (break_statement -> BREAK SEMI .)
+    EXTERN          reduce using rule 35 (break_statement -> BREAK SEMI .)
+    STATIC          reduce using rule 35 (break_statement -> BREAK SEMI .)
+    BAND            reduce using rule 35 (break_statement -> BREAK SEMI .)
+    TIMES           reduce using rule 35 (break_statement -> BREAK SEMI .)
+    INT_CONST       reduce using rule 35 (break_statement -> BREAK SEMI .)
+    CHAR_CONST      reduce using rule 35 (break_statement -> BREAK SEMI .)
+    FLOAT_CONST     reduce using rule 35 (break_statement -> BREAK SEMI .)
+    NORMALSTRING    reduce using rule 35 (break_statement -> BREAK SEMI .)
+    INT             reduce using rule 35 (break_statement -> BREAK SEMI .)
+    CHAR            reduce using rule 35 (break_statement -> BREAK SEMI .)
+    FLOAT           reduce using rule 35 (break_statement -> BREAK SEMI .)
+    VOID            reduce using rule 35 (break_statement -> BREAK SEMI .)
+    RBRACE          reduce using rule 35 (break_statement -> BREAK SEMI .)
+
+
+state 135
+
+    (31) if_statement1 -> IF LPAREN . expression RPAREN compound_statement ELSE compound_statement
+    (32) if_statement2 -> IF LPAREN . expression RPAREN compound_statement
+    (44) expression -> . binary_expr
+    (45) expression -> . funccall_expr
+    (53) binary_expr -> . binary_expr PLUS binary_expr
+    (54) binary_expr -> . binary_expr MINUS binary_expr
+    (55) binary_expr -> . binary_expr TIMES binary_expr
+    (56) binary_expr -> . binary_expr DIVIDES binary_expr
+    (57) binary_expr -> . binary_expr GT binary_expr
+    (58) binary_expr -> . binary_expr LT binary_expr
+    (59) binary_expr -> . binary_expr LE binary_expr
+    (60) binary_expr -> . binary_expr GE binary_expr
+    (61) binary_expr -> . binary_expr EQ binary_expr
+    (62) binary_expr -> . binary_expr NE binary_expr
+    (63) binary_expr -> . binary_expr LAND binary_expr
+    (64) binary_expr -> . binary_expr LOR binary_expr
+    (65) binary_expr -> . LPAREN binary_expr RPAREN
+    (66) binary_expr -> . cast_expr
+    (67) binary_expr -> . funccall_expr
+    (78) funccall_expr -> . methodsymbol LPAREN argument_list RPAREN
+    (79) funccall_expr -> . methodsymbol LPAREN RPAREN
+    (46) cast_expr -> . unary_expr
+    (47) cast_expr -> . primary_expr
+    (85) methodsymbol -> . ID
+    (52) unary_expr -> . unary_op primary_expr
+    (48) primary_expr -> . varsymbol
+    (49) primary_expr -> . constant
+    (50) unary_op -> . BAND
+    (51) unary_op -> . TIMES
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    LPAREN          shift and go to state 55
+    ID              shift and go to state 23
+    BAND            shift and go to state 28
+    TIMES           shift and go to state 29
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    expression                     shift and go to state 144
+    binary_expr                    shift and go to state 53
+    funccall_expr                  shift and go to state 54
+    cast_expr                      shift and go to state 51
+    methodsymbol                   shift and go to state 56
+    unary_expr                     shift and go to state 24
+    primary_expr                   shift and go to state 25
+    unary_op                       shift and go to state 26
+    varsymbol                      shift and go to state 41
+    constant                       shift and go to state 27
+
+state 136
+
+    (18) funcdecl -> type methodsymbol . LPAREN param_list RPAREN
+
+    LPAREN          shift and go to state 145
+
+
+state 137
+
+    (86) varsymbol -> ID .
+    (85) methodsymbol -> ID .
+
+    LBRACKET        reduce using rule 86 (varsymbol -> ID .)
+    EQUALS          reduce using rule 86 (varsymbol -> ID .)
+    SEMI            reduce using rule 86 (varsymbol -> ID .)
+    LPAREN          reduce using rule 85 (methodsymbol -> ID .)
+
+
+state 138
+
+    (78) funccall_expr -> methodsymbol LPAREN argument_list RPAREN .
+
+    SEMI            reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    PLUS            reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    MINUS           reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    TIMES           reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    DIVIDES         reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    GT              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    LT              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    LE              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    GE              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    EQ              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    NE              reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    LAND            reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    LOR             reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+    RPAREN          reduce using rule 78 (funccall_expr -> methodsymbol LPAREN argument_list RPAREN .)
+
+
+state 139
+
+    (75) argument_list -> argument COMMA . argument_list
+    (74) argument_list -> . argument
+    (75) argument_list -> . argument COMMA argument_list
+    (72) argument -> . varsymbol
+    (73) argument -> . constant
+    (86) varsymbol -> . ID
+    (87) constant -> . INT_CONST
+    (88) constant -> . CHAR_CONST
+    (89) constant -> . FLOAT_CONST
+    (90) constant -> . NORMALSTRING
+
+    ID              shift and go to state 42
+    INT_CONST       shift and go to state 22
+    CHAR_CONST      shift and go to state 30
+    FLOAT_CONST     shift and go to state 31
+    NORMALSTRING    shift and go to state 32
+
+    argument                       shift and go to state 120
+    argument_list                  shift and go to state 146
+    varsymbol                      shift and go to state 121
+    constant                       shift and go to state 122
+
+state 140
+
+    (15) arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression .
+
+    SEMI            reduce using rule 15 (arraydecl -> type varsymbol LBRACKET INT_CONST RBRACKET EQUALS expression .)
+
+
+state 141
+
+    (30) while_statement -> WHILE LPAREN expression . RPAREN compound_statement
+
+    RPAREN          shift and go to state 147
+
+
+state 142
+
+    (43) assignment_expr -> cast_expr EQUALS expression .
+
+    SEMI            reduce using rule 43 (assignment_expr -> cast_expr EQUALS expression .)
+
+
+state 143
+
+    (40) return_statement -> RETURN expression SEMI .
+
+    WHILE           reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    RETURN          reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    CONTINUE        reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    BREAK           reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    IF              reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    ID              reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    EXTERN          reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    STATIC          reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    BAND            reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    TIMES           reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    INT_CONST       reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    CHAR_CONST      reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    FLOAT_CONST     reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    NORMALSTRING    reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    INT             reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    CHAR            reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    FLOAT           reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    VOID            reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+    RBRACE          reduce using rule 40 (return_statement -> RETURN expression SEMI .)
+
+
+state 144
+
+    (31) if_statement1 -> IF LPAREN expression . RPAREN compound_statement ELSE compound_statement
+    (32) if_statement2 -> IF LPAREN expression . RPAREN compound_statement
+
+    RPAREN          shift and go to state 148
+
+
+state 145
+
+    (18) funcdecl -> type methodsymbol LPAREN . param_list RPAREN
+    (69) param_list -> . param
+    (70) param_list -> . param COMMA param_list
+    (71) param_list -> . VOID
+    (68) param -> . type varsymbol
+    (23) type -> . basetype pointer
+    (24) type -> . basetype
+    (81) basetype -> . INT
+    (82) basetype -> . CHAR
+    (83) basetype -> . FLOAT
+    (84) basetype -> . VOID
+
+    VOID            shift and go to state 50
+    INT             shift and go to state 11
+    CHAR            shift and go to state 12
+    FLOAT           shift and go to state 13
+
+    type                           shift and go to state 46
+    param_list                     shift and go to state 149
+    param                          shift and go to state 49
+    basetype                       shift and go to state 7
+
+state 146
+
+    (75) argument_list -> argument COMMA argument_list .
+
+    RPAREN          reduce using rule 75 (argument_list -> argument COMMA argument_list .)
+
+
+state 147
+
+    (30) while_statement -> WHILE LPAREN expression RPAREN . compound_statement
+    (29) compound_statement -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 62
+
+    compound_statement             shift and go to state 150
+
+state 148
+
+    (31) if_statement1 -> IF LPAREN expression RPAREN . compound_statement ELSE compound_statement
+    (32) if_statement2 -> IF LPAREN expression RPAREN . compound_statement
+    (29) compound_statement -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 62
+
+    compound_statement             shift and go to state 151
+
+state 149
+
+    (18) funcdecl -> type methodsymbol LPAREN param_list . RPAREN
+
+    RPAREN          shift and go to state 152
+
+
+state 150
+
+    (30) while_statement -> WHILE LPAREN expression RPAREN compound_statement .
+
+    WHILE           reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    RETURN          reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    CONTINUE        reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    BREAK           reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    IF              reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    ID              reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    EXTERN          reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    STATIC          reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    BAND            reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    TIMES           reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    INT_CONST       reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    CHAR_CONST      reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    FLOAT_CONST     reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    NORMALSTRING    reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    INT             reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    CHAR            reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    FLOAT           reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    VOID            reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+    RBRACE          reduce using rule 30 (while_statement -> WHILE LPAREN expression RPAREN compound_statement .)
+
+
+state 151
+
+    (31) if_statement1 -> IF LPAREN expression RPAREN compound_statement . ELSE compound_statement
+    (32) if_statement2 -> IF LPAREN expression RPAREN compound_statement .
+
+    ELSE            shift and go to state 153
+    WHILE           reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    RETURN          reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    CONTINUE        reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    BREAK           reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    IF              reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    ID              reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    EXTERN          reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    STATIC          reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    BAND            reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    TIMES           reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    INT_CONST       reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    CHAR_CONST      reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    FLOAT_CONST     reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    NORMALSTRING    reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    INT             reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    CHAR            reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    FLOAT           reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    VOID            reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+    RBRACE          reduce using rule 32 (if_statement2 -> IF LPAREN expression RPAREN compound_statement .)
+
+
+state 152
+
+    (18) funcdecl -> type methodsymbol LPAREN param_list RPAREN .
+
+    SEMI            reduce using rule 18 (funcdecl -> type methodsymbol LPAREN param_list RPAREN .)
+
+
+state 153
+
+    (31) if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE . compound_statement
+    (29) compound_statement -> . LBRACE statement_list RBRACE
+
+    LBRACE          shift and go to state 62
+
+    compound_statement             shift and go to state 154
+
+state 154
+
+    (31) if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .
+
+    WHILE           reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    RETURN          reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    CONTINUE        reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    BREAK           reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    IF              reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    ID              reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    EXTERN          reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    STATIC          reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    BAND            reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    TIMES           reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    INT_CONST       reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    CHAR_CONST      reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    FLOAT_CONST     reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    NORMALSTRING    reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    INT             reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    CHAR            reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    FLOAT           reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    VOID            reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+    RBRACE          reduce using rule 31 (if_statement1 -> IF LPAREN expression RPAREN compound_statement ELSE compound_statement .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for TIMES in state 7 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 34 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 113 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 113 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 113 resolved as shift
+WARNING: shift/reduce conflict for DIVIDES in state 113 resolved as shift
+WARNING: shift/reduce conflict for GT in state 113 resolved as shift
+WARNING: shift/reduce conflict for LT in state 113 resolved as shift
+WARNING: shift/reduce conflict for LE in state 113 resolved as shift
+WARNING: shift/reduce conflict for GE in state 113 resolved as shift
+WARNING: shift/reduce conflict for EQ in state 113 resolved as shift
+WARNING: shift/reduce conflict for NE in state 113 resolved as shift
+WARNING: shift/reduce conflict for LAND in state 113 resolved as shift
+WARNING: shift/reduce conflict for LOR in state 113 resolved as shift
+WARNING: reduce/reduce conflict in state 54 resolved using rule (expression -> funccall_expr)
+WARNING: rejected rule (binary_expr -> funccall_expr) in state 54
