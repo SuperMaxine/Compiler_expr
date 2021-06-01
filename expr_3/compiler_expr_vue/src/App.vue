@@ -1,4 +1,5 @@
 <template>
+  <h1>词法分析</h1>
   <el-row :gutter="20">
     <el-col :span="22"
       ><el-input
@@ -33,6 +34,8 @@
 
   <br />
 
+  <h1>语法分析</h1>
+
   <el-row :gutter="20">
     <el-col :span="22">
       <el-input
@@ -50,6 +53,8 @@
     </el-col>
   </el-row>
 
+  <br />
+
   <el-row :gutter="20">
     <el-col>
       <el-input
@@ -61,21 +66,67 @@
     </el-col>
   </el-row>
 
+  <h2>DFA</h2>
+
   <vue3-mermaid
     :nodes="graph"
-    type="graph LR"
+    type="graph TD"
     v-if="renderGraph"
   ></vue3-mermaid>
-<!-- v-if="renderGraph" -->
+  <!-- v-if="renderGraph" -->
+  <h2>SLR分析表</h2>
+  <el-table :data="SLRtableData" style="width: 100%" height="650" stripe>
+    <el-table-column fixed prop="num" label=" " width="50"> </el-table-column>
+    <el-table-column label="ACTION">
+      <el-table-column
+        v-for="s in SLRtableCol1"
+        v-bind:key="s"
+        :prop="s"
+        :label="s"
+      ></el-table-column>
+    </el-table-column>
+    <el-table-column label="GOTO">
+      <el-table-column
+        v-for="s in SLRtableCol2"
+        v-bind:key="s"
+        :prop="s"
+        :label="s"
+      ></el-table-column>
+    </el-table-column>
+  </el-table>
 
+    <br />
+
+  <h2>输入归约规则</h2>
+  <el-row :gutter="20">
+    <el-col :span="6"> 原表达式 </el-col>
+    <el-col :span="14"></el-col>
+    <el-col :span="2">
+      <el-button type="primary" v-on:click="grammar_parser"
+        >确认归约规则</el-button
+      >
+    </el-col>
+    <el-col :span="2"></el-col>
+  </el-row>
+  <el-row :gutter="20" v-for="s in GrammarFunction" v-bind:key="s.str">
+    <el-col :span="6">
+      {{ s.str }}
+    </el-col>
+    <el-col :span="18">
+      <el-input
+        type="textarea"
+        :autosize="{ minRows: 5, maxRows: 5 }"
+        placeholder="请输入归约规则"
+        v-model="s.FuncStr"
+      ></el-input>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
-
 export default {
   name: "App",
-  components: {
-  },
+  components: {},
   data() {
     return {
       RawLex: "",
@@ -92,35 +143,46 @@ export default {
       itemSet: [], // 项目集
       itemfamily: [], // 项目规范族
       goMap: [], // Go函数
-      renderGraph:false,
+      renderGraph: false,
+      ACTION: [],
+      GOTO: [],
       graph: [
         {
-          id:"0",
-          text:"\"S' -> . S</br>S -> . L</br>L -> . P</br>P -> . ;\"",
-          link:["-- S -->", "-- P -->", "-- L -->", "-- \";\" -->"],
-          next:["1", "2", "3", "4"],
-        },{
-          id:"1",
-          text:"\"S' -> S .\"",
-          link:[],
-          next:[],
-        },{
-          id:"2",
-          text:"\"S -> L .\"",
-          link:[],
-          next:[],
-        },{
-          id:"3",
-          text:"\"L -> P .\"",
-          link:[],
-          next:[],
-        },{
-          id:"4",
-          text:"\"P -> ; .\"",
-          link:[],
-          next:[],
+          id: "0",
+          text: '"S\' -> . S</br>S -> . L</br>L -> . P</br>P -> . ;"',
+          link: ["-- S -->", "-- P -->", "-- L -->", '-- ";" -->'],
+          next: ["1", "2", "3", "4"],
+        },
+        {
+          id: "1",
+          text: '"S\' -> S ."',
+          link: [],
+          next: [],
+        },
+        {
+          id: "2",
+          text: '"S -> L ."',
+          link: [],
+          next: [],
+        },
+        {
+          id: "3",
+          text: '"L -> P ."',
+          link: [],
+          next: [],
+        },
+        {
+          id: "4",
+          text: '"P -> ; ."',
+          link: [],
+          next: [],
         },
       ],
+      SLRtableData: [],
+      SLRtableCol1: [],
+      SLRtableCol2: [],
+
+      GrammarFunction: [],
     };
   },
   methods: {
@@ -186,7 +248,6 @@ export default {
     },
     init_grammar_parser() {
       // 初始化
-      this.graph = [];
       this.GrammarStream = [];
       this.TerminalSymbols = new Set(); // 终结符
       this.unTerminalSymbols = new Set(); // 非终结符
@@ -196,7 +257,14 @@ export default {
       this.itemSet = []; // 项目集
       this.itemfamily = []; // 项目规范族
       this.goMap = []; // Go函数
-      this.renderGraph=false;
+      this.renderGraph = false;
+      this.graph = [];
+      this.ACTION = [];
+      this.GOTO = [];
+      this.SLRtableData = [];
+      this.SLRtableCol1 = [];
+      this.SLRtableCol2 = [];
+      this.GrammarFunction = [];
     },
     grammar_parser() {
       this.init_grammar_parser();
@@ -221,6 +289,14 @@ export default {
         dot: 0,
       });
       console.log("结构化文法", this.GrammarStream);
+
+      // 初始化文法对应的函数集合
+      for (let s of this.GrammarStream) {
+        this.GrammarFunction.push({
+          str: s["left"] + "->" + s["right"].join(" "),
+          FuncStr: "",
+        });
+      }
 
       // 生成非终结符集
       for (let g of this.GrammarStream)
@@ -256,7 +332,12 @@ export default {
       console.log("项目规范族：", this.itemfamily);
       console.log("goMap:", this.goMap);
 
+      // 生成mermaid-DFA图
       this.showDFA();
+
+      // 生成ACTION、GOTO
+      this.genACTIONGOTO();
+      this.showSLRSheet();
     },
     genGrammar(str) {
       let gen = str.split("->");
@@ -459,33 +540,92 @@ export default {
         let nodeText = [];
         for (let item of this.itemfamily[i]) {
           nodeText.push(this.itemSetToString(item));
-          console.log(nodeText);
+          // console.log(nodeText);
         }
         this.graph.push({
           id: i,
-          text: "\""+nodeText.join("</br>")+"\"",
+          text: '"s' + i + "</br>" + nodeText.join("</br>") + '"',
           next: [],
           link: [],
         });
       }
-      console.log(this.graph);
+      console.log("初始化 图：", this.graph);
 
       // 定义规范族之间的关系
       for (let i = 0; i < this.goMap.length; i++)
         for (let j = 0; j < this.goMap[i].length; j++)
           if (this.goMap[i][j] != null) {
             this.graph[i]["next"].push("" + j);
-            this.graph[i]["link"].push("-- \"" + this.goMap[i][j] + "\" -->");
+            this.graph[i]["link"].push('-- "' + this.goMap[i][j] + '" -->');
           }
 
-      console.log(this.graph);
-      this.renderGraph=true;
+      console.log("完成 图：", this.graph);
+      this.renderGraph = true;
     },
     itemSetToString(item) {
       let dd = JSON.parse(JSON.stringify(item["right"]));
-      console.log(dd);
+      // console.log(dd);
       dd.splice(item["dot"], 0, ".");
       return item["left"] + " -> " + dd.join(" ");
+    },
+    genACTIONGOTO() {
+      // 生成ACTION、GOTO
+      // console.log("this.itemfamily:", this.itemfamily);
+      // console.log("this.GrammarStream:", this.GrammarStream);
+      for (let index in this.itemfamily) {
+        this.ACTION[index] = {};
+        this.GOTO[index] = {};
+        for (let item of this.itemfamily[index]) {
+          if (item["dot"] == item["right"].length) {
+            // 点移动到最后一位，可以进行规约
+            if (item["left"] == "S'") {
+              // S'遇到结束符#，acc
+              this.ACTION[index]["#"] = "acc";
+              continue;
+            }
+            for (let f of this.follow[item["left"]]) {
+              // 找到用来归约的产生式，使用rx进行规约
+              let toIndex = this.findgrammar(item["left"], item["right"]);
+              this.ACTION[index][f] = "r" + toIndex;
+            }
+          } else if (!this.unTerminalSymbols.has(item["right"][item["dot"]])) {
+            // 遇到非终结符，进行ACTION
+            for (let toIndex in this.goMap[index])
+              if (this.goMap[index][toIndex] == item["right"][item["dot"]])
+                this.ACTION[index][item["right"][item["dot"]]] = "s" + toIndex;
+          } else if (this.unTerminalSymbols.has(item["right"][item["dot"]])) {
+            // 遇到终结符，伴随移入，GOTO
+            for (let toIndex in this.goMap[index])
+              if (this.goMap[index][toIndex] == item["right"][item["dot"]])
+                this.GOTO[index][item["right"][item["dot"]]] = toIndex;
+          }
+        }
+      }
+      console.log("ACTION:", this.ACTION);
+      console.log("GOTO", this.GOTO);
+    },
+    findgrammar(key, value) {
+      for (let i in this.GrammarStream)
+        if (
+          this.GrammarStream[i]["left"] == key &&
+          this.GrammarStream[i]["right"] == value
+        )
+          return i;
+    },
+    showSLRSheet() {
+      for (let s of this.TerminalSymbols) this.SLRtableCol1.push(s);
+      this.SLRtableCol1.push("#");
+      for (let s of this.unTerminalSymbols) this.SLRtableCol2.push(s);
+
+      for (let i = 0; i < this.itemfamily.length; i++) {
+        let SLRline = { num: "s" + i };
+
+        for (let a in this.ACTION[i]) SLRline[a] = this.ACTION[i][a];
+
+        for (let g in this.GOTO[i]) SLRline[g] = this.GOTO[i][g];
+
+        this.SLRtableData.push(SLRline);
+      }
     },
   },
 };
