@@ -60,16 +60,21 @@
       ></el-input>
     </el-col>
   </el-row>
-  <HelloWorld :graph="graph" />
+
+  <vue3-mermaid
+    :nodes="graph"
+    type="graph LR"
+    v-if="renderGraph"
+  ></vue3-mermaid>
+<!-- v-if="renderGraph" -->
+
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
   },
   data() {
     return {
@@ -87,23 +92,34 @@ export default {
       itemSet: [], // 项目集
       itemfamily: [], // 项目规范族
       goMap: [], // Go函数
+      renderGraph:false,
       graph: [
         {
-          id: "1",
-          text: "A",
-          link: ["-- yes -->", "-- no -->"],
-          next: ["2", "3"],
+          id:"0",
+          text:"\"S' -> . S</br>S -> . L</br>L -> . P</br>P -> . ;\"",
+          link:["-- S -->", "-- P -->", "-- L -->", "-- \";\" -->"],
+          next:["1", "2", "3", "4"],
+        },{
+          id:"1",
+          text:"\"S' -> S .\"",
+          link:[],
+          next:[],
+        },{
+          id:"2",
+          text:"\"S -> L .\"",
+          link:[],
+          next:[],
+        },{
+          id:"3",
+          text:"\"L -> P .\"",
+          link:[],
+          next:[],
+        },{
+          id:"4",
+          text:"\"P -> ; .\"",
+          link:[],
+          next:[],
         },
-        { id: "2", text: "B", next: ["3"] },
-        { id: "3", text: "C", next: ["4", "6"] },
-        {
-          id: "4",
-          text: "D",
-          link: ["-- This is fuck text ---","-- fuck -->"],
-          next: ["5","6"],
-        },
-        { id: "5", text: "E" },
-        { id: "6", text: "F" },
       ],
     };
   },
@@ -172,14 +188,15 @@ export default {
       // 初始化
       this.graph = [];
       this.GrammarStream = [];
-      this.TerminalSymbols= new Set(); // 终结符
-      this.unTerminalSymbols= new Set(); // 非终结符
-      this.GrammarStream= [];
-      this.first= {}; // FIRST集
-      this.follow= {}; // FOLLOW集合
-      this.itemSet= []; // 项目集
-      this.itemfamily= []; // 项目规范族
-      this.goMap= []; // Go函数
+      this.TerminalSymbols = new Set(); // 终结符
+      this.unTerminalSymbols = new Set(); // 非终结符
+      this.GrammarStream = [];
+      this.first = {}; // FIRST集
+      this.follow = {}; // FOLLOW集合
+      this.itemSet = []; // 项目集
+      this.itemfamily = []; // 项目规范族
+      this.goMap = []; // Go函数
+      this.renderGraph=false;
     },
     grammar_parser() {
       this.init_grammar_parser();
@@ -200,7 +217,7 @@ export default {
       });
       this.GrammarStream.unshift({
         left: "S'",
-        right: this.GrammarStream[0]["left"],
+        right: [this.GrammarStream[0]["left"]],
         dot: 0,
       });
       console.log("结构化文法", this.GrammarStream);
@@ -238,6 +255,8 @@ export default {
       this.genItemFamily();
       console.log("项目规范族：", this.itemfamily);
       console.log("goMap:", this.goMap);
+
+      this.showDFA();
     },
     genGrammar(str) {
       let gen = str.split("->");
@@ -433,6 +452,40 @@ export default {
       }
 
       return -1;
+    },
+    showDFA() {
+      // 定义规范族
+      for (let i = 0; i < this.itemfamily.length; i++) {
+        let nodeText = [];
+        for (let item of this.itemfamily[i]) {
+          nodeText.push(this.itemSetToString(item));
+          console.log(nodeText);
+        }
+        this.graph.push({
+          id: i,
+          text: "\""+nodeText.join("</br>")+"\"",
+          next: [],
+          link: [],
+        });
+      }
+      console.log(this.graph);
+
+      // 定义规范族之间的关系
+      for (let i = 0; i < this.goMap.length; i++)
+        for (let j = 0; j < this.goMap[i].length; j++)
+          if (this.goMap[i][j] != null) {
+            this.graph[i]["next"].push("" + j);
+            this.graph[i]["link"].push("-- \"" + this.goMap[i][j] + "\" -->");
+          }
+
+      console.log(this.graph);
+      this.renderGraph=true;
+    },
+    itemSetToString(item) {
+      let dd = JSON.parse(JSON.stringify(item["right"]));
+      console.log(dd);
+      dd.splice(item["dot"], 0, ".");
+      return item["left"] + " -> " + dd.join(" ");
     },
   },
 };
