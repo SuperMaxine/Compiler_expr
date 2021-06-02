@@ -1,5 +1,14 @@
 <template>
-  <h1>词法分析</h1>
+  <el-row :gutter="20">
+    <el-col :span="22">
+      <h1>编译原理实验环境</h1>
+    </el-col>
+    <el-col :span="2">
+      <el-button type="primary" v-on:click="loadFile">加载文件</el-button>
+    </el-col>
+  </el-row>
+
+  <h2>词法分析</h2>
   <el-row :gutter="20">
     <el-col :span="22"
       ><el-input
@@ -34,7 +43,7 @@
 
   <br />
 
-  <h1>语法分析</h1>
+  <h2>语法分析</h2>
 
   <el-row :gutter="20">
     <el-col :span="22">
@@ -66,7 +75,7 @@
     </el-col>
   </el-row>
 
-  <h2>DFA</h2>
+  <h3>DFA</h3>
 
   <vue3-mermaid
     :nodes="graph"
@@ -74,7 +83,7 @@
     v-if="renderGraph"
   ></vue3-mermaid>
   <!-- v-if="renderGraph" -->
-  <h2>SLR分析表</h2>
+  <h3>SLR分析表</h3>
   <el-table :data="SLRtableData" style="width: 100%" height="650" stripe>
     <el-table-column fixed prop="num" label=" " width="50"> </el-table-column>
     <el-table-column label="ACTION">
@@ -95,15 +104,15 @@
     </el-table-column>
   </el-table>
 
-    <br />
+  <br />
 
-  <h2>输入归约规则</h2>
+  <h3>输入归约规则</h3>
   <el-row :gutter="20">
     <el-col :span="6"> 原表达式 </el-col>
-    <el-col :span="14"></el-col>
-    <el-col :span="2">
-      <el-button type="primary" v-on:click="grammar_parser"
-        >确认归约规则</el-button
+    <el-col :span="12"></el-col>
+    <el-col :span="4">
+      <el-button type="primary" v-on:click="GrammarFunctionReturner"
+        >确认归约规则，构建语法树</el-button
       >
     </el-col>
     <el-col :span="2"></el-col>
@@ -121,14 +130,35 @@
       ></el-input>
     </el-col>
   </el-row>
+
+  <br />
+  <h3>自底向上LR归约步骤</h3>
+  <el-table :data="tableProcess" border style="width: 100%">
+    <el-table-column prop="idx" label="步骤"></el-table-column>
+    <el-table-column prop="state" label="状态栈"></el-table-column>
+    <el-table-column prop="sym" label="符号栈"></el-table-column>
+    <el-table-column prop="next" label="Next"></el-table-column>
+    <el-table-column prop="act" label="动作说明"></el-table-column>
+  </el-table>
+
+  <br />
+  <h3>三地址码</h3>
+  <el-input
+        type="textarea"
+        :autosize="{ minRows: 5 }"
+        placeholder="三地址码"
+        v-model="Result"
+      ></el-input>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
   components: {},
   data() {
     return {
+      readFile: false,
       RawLex: "",
       LexResult: "",
       LexStream: [],
@@ -183,9 +213,25 @@ export default {
       SLRtableCol2: [],
 
       GrammarFunction: [],
+      placeNum: -1,
+      labelNum: -1,
+
+      tableProcess: [],
+      stepProcess: 0,
+      Result: "Fuck",
     };
   },
   methods: {
+    loadFile() {
+      axios.get("./a.json").then((res) => {
+        console.log("res.data = ", res.data);
+        this.RawLex = res.data["rawLex"];
+        this.RawTerminalSymbols = res.data["terminalSymbols"];
+        this.RawGrammar = res.data["rawGrammar"];
+        this.GrammarFunction = res.data["GrammarFuntion"];
+        this.readFile = true;
+      });
+    },
     Lex_parser() {
       this.LexResult = "";
       var regexp = /(0(?:x|X)[a-fA-F0-9]+(?:\.[0-9a-fA-F]+){0,1})|(0[0-7]+(?:\.[0-7]+){0,1})|(if|then|else|while|do)|([a-zA-Z](?:[a-zA-Z]|\d)*(?:_|\.(?:[a-zA-Z]|\d)+){0,1})|([0-9]+(?:\.[0-9]+){0,1})|(\+|-|\*|\/|>|<|=|\(|\)|;)/g;
@@ -204,8 +250,8 @@ export default {
             for (i = 0; i < tmp[1].length; i++)
               num += parseInt(tmp[1][i], 16) / 16 ** (i + 1);
           // console.log("INT 16\t",num);
-          this.LexResult += "INT 16\t" + num + "\n";
-          this.LexStream.push({ type: "INT 16", attribute: num });
+          this.LexResult += "INT16\t" + num + "\n";
+          this.LexStream.push({ type: "INT16", attribute: num });
         } else if (rs[2]) {
           // 8进制，同16进制
           let tmp = rs[0].split(".");
@@ -216,8 +262,8 @@ export default {
             for (i = 0; i < tmp[1].length; i++)
               num += parseInt(tmp[1][i], 8) / 8 ** (i + 1);
           // console.log("INT 8\t",num);
-          this.LexResult += "INT 8\t" + num + "\n";
-          this.LexStream.push({ type: "INT 8", attribute: num });
+          this.LexResult += "INT8\t" + num + "\n";
+          this.LexStream.push({ type: "INT8", attribute: num });
         } else if (rs[3]) {
           // 保留关键字，转换为大写输出
           // console.log(rs[0].toLocaleUpperCase(),"\t _");
@@ -234,8 +280,8 @@ export default {
         } else if (rs[5]) {
           // 10进制
           // console.log("INT 10\t",rs[0]);
-          this.LexResult += "INT 10\t" + rs[0] + "\n";
-          this.LexStream.push({ type: "INT 10", attribute: rs[0] });
+          this.LexResult += "INT10\t" + rs[0] + "\n";
+          this.LexStream.push({ type: "INT10", attribute: rs[0] });
         } else if (rs[6]) {
           // 运算符和分隔符
           // console.log(rs[0],"\t _");
@@ -244,7 +290,8 @@ export default {
         }
       }
 
-      // console.log(this.LexStream);
+      this.LexStream.push({ type: "#", attribute: "_" });
+      console.log("词法输入栈：", this.LexStream);
     },
     init_grammar_parser() {
       // 初始化
@@ -264,7 +311,8 @@ export default {
       this.SLRtableData = [];
       this.SLRtableCol1 = [];
       this.SLRtableCol2 = [];
-      this.GrammarFunction = [];
+      if (!this.readFile) this.GrammarFunction = [];
+      this.placeNum = -1;
     },
     grammar_parser() {
       this.init_grammar_parser();
@@ -291,12 +339,13 @@ export default {
       console.log("结构化文法", this.GrammarStream);
 
       // 初始化文法对应的函数集合
-      for (let s of this.GrammarStream) {
-        this.GrammarFunction.push({
-          str: s["left"] + "->" + s["right"].join(" "),
-          FuncStr: "",
-        });
-      }
+      if (!this.readFile)
+        for (let s of this.GrammarStream) {
+          this.GrammarFunction.push({
+            str: s["left"] + "->" + s["right"].join(" "),
+            FuncStr: "",
+          });
+        }
 
       // 生成非终结符集
       for (let g of this.GrammarStream)
@@ -626,6 +675,116 @@ export default {
 
         this.SLRtableData.push(SLRline);
       }
+    },
+    GrammarFunctionReturner() {
+      // console.log("归约规则集合", this.GrammarFunction);l
+      for (let g of this.GrammarFunction) {
+        console.log(g["FuncStr"]);
+        let f = new Function("return " + g["FuncStr"]);
+        g["f"] = f();
+        // g["f"](g["str"]);
+      }
+      console.log("Build tree:" + this.buildTree());
+    },
+    buildTree() {
+      let stateStack = [0];
+      let SymStack = [{ type: "$" }];
+      let tmp = this.LexStream.shift();
+      let Next = { type: tmp["type"], attribute: tmp["attribute"] };
+      let flag = true;
+      while (flag) {
+        flag = false;
+        this.updateProcess(stateStack, SymStack, Next);
+        console.log("输入栈：", this.LexStream);
+        console.log("符号栈：", SymStack);
+        console.log("状态栈：", stateStack);
+        console.log("Next：", Next);
+        if (stateStack.length == SymStack.length) {
+          let action = this.ACTION[stateStack.slice(-1)[0]][Next["type"]];
+          console.log("action:", action);
+          if (action == "acc") {
+            this.tableProcess[this.tableProcess.length - 1]["act"] = "acc";
+            console.log("Build tree success:");
+            console.log(SymStack.slice(-1)[0]);
+            this.Result = SymStack.slice(-1)[0]["code"];
+            return true;
+          } else if (action[0] == "s") {
+            this.tableProcess[this.tableProcess.length - 1]["act"] =
+              "ACTION(" +
+              stateStack.slice(-1)[0] +
+              "," +
+              Next["type"] +
+              ")=" +
+              action +
+              "，状态" +
+              action.slice(1) +
+              "入栈";
+            stateStack.push(parseInt(action.slice(1)));
+            SymStack.push(Next);
+            tmp = this.LexStream.shift();
+            Next = { type: tmp["type"], attribute: tmp["attribute"] };
+            flag = true;
+          } else if (action[0] == "r") {
+            let gramNum = parseInt(action.slice(1));
+            this.tableProcess[this.tableProcess.length - 1]["act"] =
+              action +
+              "：用" +
+              (this.GrammarStream[gramNum]["left"] +
+                "->" +
+                this.GrammarStream[gramNum]["right"]) +
+              "归约";
+            let para_arr = [];
+            for (
+              let i = 0;
+              i < this.GrammarStream[gramNum]["right"].length;
+              i++
+            ) {
+              para_arr.unshift(SymStack.pop());
+              stateStack.pop();
+            }
+            console.log("para_arr:", para_arr);
+            SymStack.push(this.GrammarFunction[gramNum]["f"](para_arr, this));
+            flag = true;
+          }
+        } else if (stateStack.length < SymStack.length) {
+          this.tableProcess[this.tableProcess.length - 1]["act"] =
+            "GOTO(" +
+            stateStack.slice(-1)[0] +
+            "," +
+            SymStack.slice(-1)[0]["type"] +
+            ")状态" +
+            this.GOTO[stateStack.slice(-1)[0]][SymStack.slice(-1)[0]["type"]] +
+            "入栈";
+          console.log(
+            "goto:",
+            this.GOTO[stateStack.slice(-1)[0]][SymStack.slice(-1)[0]["type"]]
+          );
+          stateStack.push(
+            parseInt(
+              this.GOTO[stateStack.slice(-1)[0]][SymStack.slice(-1)[0]["type"]]
+            )
+          );
+          flag = true;
+        }
+      }
+      return false;
+    },
+    updateProcess(stateStack, SymStack, Next) {
+      let state = "";
+      for (let num of stateStack) state += num + " ";
+
+      let sym = "";
+      for (let s of SymStack) sym += s["type"] + " ";
+
+      let next = Next["type"];
+
+      this.tableProcess.push({
+        idx: ++this.stepProcess,
+        state: state,
+        sym: sym,
+        next: next,
+        act: "act",
+      });
     },
   },
 };

@@ -5,6 +5,7 @@ import Vue3Mermaid from "vue3-mermaid";
 // import Mermaid from 'mermaid'
 
 const app = createApp(App)
+
 app.use(Vue3Mermaid);
 // app.use(Mermaid)
 installElementPlus(app)
