@@ -8,7 +8,7 @@
     </el-col>
   </el-row>
 
-  <h2>词法分析</h2>
+  <h2>1 词法分析</h2>
   <el-row :gutter="20">
     <el-col :span="22"
       ><el-input
@@ -43,7 +43,7 @@
 
   <br />
 
-  <h2>语法分析</h2>
+  <h2>2 语法分析</h2>
 
   <el-row :gutter="20">
     <el-col :span="22">
@@ -75,15 +75,11 @@
     </el-col>
   </el-row>
 
-  <h3>DFA</h3>
+  <h3>2.1 DFA</h3>
 
-  <vue3-mermaid
-    :nodes="graph"
-    type="graph TD"
-    v-if="renderGraph"
-  ></vue3-mermaid>
+  <vue3-mermaid :nodes="graph" type="graph TD" :key="graph"></vue3-mermaid>
   <!-- v-if="renderGraph" -->
-  <h3>SLR分析表</h3>
+  <h3>2.2 SLR分析表</h3>
   <el-table :data="SLRtableData" style="width: 100%" height="650" stripe>
     <el-table-column fixed prop="num" label=" " width="50"> </el-table-column>
     <el-table-column label="ACTION">
@@ -106,7 +102,7 @@
 
   <br />
 
-  <h3>输入归约规则</h3>
+  <h3>2.3 输入归约规则</h3>
   <el-row :gutter="20">
     <el-col :span="6"> 原表达式 </el-col>
     <el-col :span="12"></el-col>
@@ -132,7 +128,7 @@
   </el-row>
 
   <br />
-  <h3>自底向上LR归约步骤</h3>
+  <h3>2.4 自底向上LR归约步骤</h3>
   <el-table :data="tableProcess" border style="width: 100%">
     <el-table-column prop="idx" label="步骤"></el-table-column>
     <el-table-column prop="state" label="状态栈"></el-table-column>
@@ -142,20 +138,42 @@
   </el-table>
 
   <br />
-  <h3>三地址码</h3>
+
+  <h3>2.5 语法树</h3>
+  <!-- <vue3-mermaid
+    :nodes="treeGraph"
+    type="graph TD"
+    :key="treeGraph"
+  ></vue3-mermaid> -->
+  <!-- <Tree :treeGraph="treeGraph" /> -->
   <el-input
-        type="textarea"
-        :autosize="{ minRows: 5 }"
-        placeholder="三地址码"
-        v-model="Result"
-      ></el-input>
+    type="textarea"
+    :autosize="{ minRows: 5 }"
+    placeholder="语法树"
+    v-model="treeText"
+    disabled
+  ></el-input>
+
+  <br />
+
+  <h3>2.6 三地址码</h3>
+  <el-input
+    type="textarea"
+    :autosize="{ minRows: 5 }"
+    placeholder="三地址码"
+    v-model="Result"
+    disabled
+  ></el-input>
 </template>
 
 <script>
 import axios from "axios";
+// import Tree from "./components/tree";
 export default {
   name: "App",
-  components: {},
+  components: {
+    // Tree,
+  },
   data() {
     return {
       readFile: false,
@@ -173,40 +191,39 @@ export default {
       itemSet: [], // 项目集
       itemfamily: [], // 项目规范族
       goMap: [], // Go函数
-      renderGraph: false,
       ACTION: [],
       GOTO: [],
       graph: [
-        {
-          id: "0",
-          text: '"S\' -> . S</br>S -> . L</br>L -> . P</br>P -> . ;"',
-          link: ["-- S -->", "-- P -->", "-- L -->", '-- ";" -->'],
-          next: ["1", "2", "3", "4"],
-        },
-        {
-          id: "1",
-          text: '"S\' -> S ."',
-          link: [],
-          next: [],
-        },
-        {
-          id: "2",
-          text: '"S -> L ."',
-          link: [],
-          next: [],
-        },
-        {
-          id: "3",
-          text: '"L -> P ."',
-          link: [],
-          next: [],
-        },
-        {
-          id: "4",
-          text: '"P -> ; ."',
-          link: [],
-          next: [],
-        },
+        // {
+        //   id: "0",
+        //   text: '"S\' -> . S</br>S -> . L</br>L -> . P</br>P -> . ;"',
+        //   link: ["-- S -->", "-- P -->", "-- L -->", '-- ";" -->'],
+        //   next: ["1", "2", "3", "4"],
+        // },
+        // {
+        //   id: "1",
+        //   text: '"S\' -> S ."',
+        //   link: [],
+        //   next: [],
+        // },
+        // {
+        //   id: "2",
+        //   text: '"S -> L ."',
+        //   link: [],
+        //   next: [],
+        // },
+        // {
+        //   id: "3",
+        //   text: '"L -> P ."',
+        //   link: [],
+        //   next: [],
+        // },
+        // {
+        //   id: "4",
+        //   text: '"P -> ; ."',
+        //   link: [],
+        //   next: [],
+        // },
       ],
       SLRtableData: [],
       SLRtableCol1: [],
@@ -219,6 +236,7 @@ export default {
       tableProcess: [],
       stepProcess: 0,
       Result: "Fuck",
+      treeText: "",
     };
   },
   methods: {
@@ -304,7 +322,6 @@ export default {
       this.itemSet = []; // 项目集
       this.itemfamily = []; // 项目规范族
       this.goMap = []; // Go函数
-      this.renderGraph = false;
       this.graph = [];
       this.ACTION = [];
       this.GOTO = [];
@@ -313,6 +330,10 @@ export default {
       this.SLRtableCol2 = [];
       if (!this.readFile) this.GrammarFunction = [];
       this.placeNum = -1;
+
+      this.tableProcess = [];
+      this.stepProcess = 0;
+      this.Result = "Fuck";
     },
     grammar_parser() {
       this.init_grammar_parser();
@@ -609,7 +630,6 @@ export default {
           }
 
       console.log("完成 图：", this.graph);
-      this.renderGraph = true;
     },
     itemSetToString(item) {
       let dd = JSON.parse(JSON.stringify(item["right"]));
@@ -707,6 +727,7 @@ export default {
             console.log("Build tree success:");
             console.log(SymStack.slice(-1)[0]);
             this.Result = SymStack.slice(-1)[0]["code"];
+            this.showTree(SymStack.slice(-1)[0], 0);
             return true;
           } else if (action[0] == "s") {
             this.tableProcess[this.tableProcess.length - 1]["act"] =
@@ -785,6 +806,23 @@ export default {
         next: next,
         act: "act",
       });
+    },
+    showTree(node, i) {
+      console.log("tree:", node);
+      let content = [];
+      let tab = "";
+      for (let idx = 0; idx < i; idx++) tab += "    ";
+      for (let s in node) {
+        if (s != "children" && s != "code") {
+          if (s == "type") content.push(tab + s + ": " + node[s]);
+          else content.push(s + ": " + node[s]);
+        }
+      }
+      this.treeText += content.join(" ") + "\n";
+      if ("children" in node)
+        for (let child of node["children"]) {
+          this.showTree(child, i + 1);
+        }
     },
   },
 };
