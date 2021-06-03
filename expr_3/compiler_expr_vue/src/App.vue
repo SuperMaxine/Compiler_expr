@@ -396,6 +396,7 @@ export default {
       console.log("FOLLOW集：", this.follow);
 
       // 生成项目集
+      // 生成每个产生式,dot在每个位置的状态
       for (let i = 0; i < this.GrammarStream.length; i++) {
         for (let j = 0; j < this.GrammarStream[i]["right"].length; j++) {
           this.itemSet.push({
@@ -405,11 +406,12 @@ export default {
           });
         }
       }
-      console.log("项目集：", this.itemSet);
+      console.log("项目集：", this.itemSet)
+      // console.log("项目集：", JSON.parse(JSON.stringify(this.itemSet)));
 
       // 生成项目规范族
-      this.itemfamily.push(this.closure([this.itemSet[0]]));
-      console.log("初始项目规范族：", this.itemfamily);
+      this.itemfamily.push(this.closure([this.itemSet[0]]));//push入第一个状态
+      console.log("初始项目规范族：", JSON.parse(JSON.stringify(this.itemfamily)));
       this.genItemFamily();
       console.log("项目规范族：", this.itemfamily);
       console.log("goMap:", this.goMap);
@@ -477,14 +479,16 @@ export default {
       let flag = true;
       while (flag) {
         flag = false;
+        // U->...AB...
         for (let g of this.GrammarStream) {
+          //对每一个产生式进行
           let pos = 0; // 找到非终结符
           let ppos = 0; // 找到非终结符后的其他终结符
           while (pos < g["right"].length) {
             if (this.unTerminalSymbols.has(g["right"][pos])) {
               ppos = pos + 1;
               if (ppos == g["right"].length) {
-                for (let f of this.follow[g["left"]])
+                for (let f of this.follow[g["left"]]) //U的FOLLOW集加入产生式最右端的非终结符的FOLLOW(注意去重)
                   if (!this.follow[g["right"][pos]].includes(f)) {
                     this.follow[g["right"][pos]].push(f);
                     flag = true;
@@ -492,19 +496,25 @@ export default {
                 break;
               }
               while (ppos < g["right"].length) {
+                //循环,直到遇到终结符/FIRST集不含空的非终结符/产生式右侧末尾
                 if (this.unTerminalSymbols.has(g["right"][ppos])) {
+                  //该位是非终结符B
                   for (let f of this.first[g["right"][ppos]]) {
+                    //将B的FIRST集加入A的FOLLOW集(自带去重)
                     if (!this.follow[g["right"][pos]].includes(f) && f != "e") {
                       this.follow[g["right"][pos]].push(f);
                       flag = true;
                     }
                   }
                   if (this.first[g["right"][ppos]].includes("e")) ppos += 1;
+                  //如果B的FIRST含空,继续看下一位
                   else {
+                    //不含空,本产生式可以找到的A的FOLLOW已经全部搜索完毕,跳出循环看下一个
                     pos += 1;
                     break;
                   }
                 } else {
+                  //该位是终结符,将其放入A的FOLLOW集(去重)
                   if (
                     !this.follow[g["right"][pos]].includes(g["right"][ppos])
                   ) {
@@ -516,6 +526,7 @@ export default {
                 }
 
                 if (ppos == g["right"].length) {
+                  //U的FOLLOW集加入产生式最右端的非终结符的FOLLOW(注意去重)
                   // A->αB 或  A->αBβ 且 β=>e
                   for (let f of this.follow[g["left"]]) {
                     if (!this.follow[g["right"][pos]].includes(f)) {
@@ -526,6 +537,7 @@ export default {
                 }
               }
             } else {
+              //跳过A是终结符的时候
               pos += 1;
             }
           }
@@ -571,7 +583,7 @@ export default {
       //生成项目集规范族
       for (let i = 0; i < this.itemfamily.length; i++) {
         let front = [];
-        for (let item of this.itemfamily[i]) //活前缀
+        for (let item of this.itemfamily[i]) //活前缀,每句话点"·"后的第一个符号
           front.push(item["right"][item["dot"]]);
         this.goMap[i] = [];
         for (let sign of front) {
@@ -743,7 +755,9 @@ export default {
             this.$alert(
               "<i>" +
                 this.errorText.slice(0, -2) +
-                ' </i><font color="red">^'+this.errorText.slice(-2)+'</font><br><strong>Next character unexpected</strong><br>Expect: <font color="green">' +
+                ' </i><font color="red">^' +
+                this.errorText.slice(-2) +
+                '</font><br><strong>Next character unexpected</strong><br>Expect: <font color="green">' +
                 expect +
                 "</font>",
               "编译错误",
