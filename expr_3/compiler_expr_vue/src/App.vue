@@ -1,174 +1,184 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="22">
-      <h1>编译原理实验环境</h1>
-    </el-col>
-    <el-col :span="2">
-      <el-button type="primary" v-on:click="loadFile">加载文件</el-button>
-    </el-col>
-  </el-row>
-
-  <h2>1 词法分析</h2>
-  <el-row :gutter="20">
-    <el-col :span="22"
-      ><el-input
-        type="textarea"
-        :autosize="{ minRows: 5 }"
-        placeholder="请输入源代码"
-        v-model="RawLex"
-      >
-      </el-input
-    ></el-col>
-    <el-col :span="2"
-      ><el-button type="primary" v-on:click="Lex_parser"
-        >词法分析</el-button
-      ></el-col
-    >
-  </el-row>
-
-  <br />
-
-  <el-row :gutter="20">
-    <el-col :span="24"
-      ><el-input
-        type="textarea"
-        :autosize="{ minRows: 5 }"
-        placeholder="词法分析结果"
-        v-model="LexResult"
-        disabled
-      >
-      </el-input
-    ></el-col>
-  </el-row>
-
-  <br />
-
-  <h2>2 语法分析</h2>
-
-  <el-row :gutter="20">
-    <el-col :span="22">
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 1 }"
-        placeholder="请输入终结符,以\分割,不要包含空格"
-        v-model="RawTerminalSymbols"
-      ></el-input>
-    </el-col>
-
-    <el-col :span="2">
-      <el-button type="primary" v-on:click="grammar_parser">
-        语法分析
-      </el-button>
-    </el-col>
-  </el-row>
-
-  <br />
-
-  <el-row :gutter="20">
-    <el-col>
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 5 }"
-        placeholder="请输入语法"
-        v-model="RawGrammar"
-      ></el-input>
-    </el-col>
-  </el-row>
-
-  <h3>2.1 DFA</h3>
-
-  <vue3-mermaid :nodes="graph" type="graph TD" :key="graph"></vue3-mermaid>
-  <!-- v-if="renderGraph" -->
-  <h3>2.2 SLR分析表</h3>
-  <el-table :data="SLRtableData" style="width: 100%" height="650" stripe>
-    <el-table-column fixed prop="num" label=" " width="50"> </el-table-column>
-    <el-table-column label="ACTION">
-      <el-table-column
-        v-for="s in SLRtableCol1"
-        v-bind:key="s"
-        :prop="s"
-        :label="s"
-      ></el-table-column>
-    </el-table-column>
-    <el-table-column label="GOTO">
-      <el-table-column
-        v-for="s in SLRtableCol2"
-        v-bind:key="s"
-        :prop="s"
-        :label="s"
-      ></el-table-column>
-    </el-table-column>
-  </el-table>
-
-  <br />
-
-  <h3>2.3 输入归约规则</h3>
-  <el-row :gutter="20">
-    <el-col :span="6"> 原表达式 </el-col>
-    <el-col :span="12"></el-col>
-    <el-col :span="4">
-      <el-button type="primary" v-on:click="GrammarFunctionReturner"
-        >确认归约规则，构建语法树</el-button
-      >
-    </el-col>
     <el-col :span="2"></el-col>
-  </el-row>
-  <el-row :gutter="20" v-for="s in GrammarFunction" v-bind:key="s.str">
-    <el-col :span="6">
-      {{ s.str }}
-    </el-col>
-    <el-col :span="18">
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 5, maxRows: 5 }"
-        placeholder="请输入归约规则"
-        v-model="s.FuncStr"
-      ></el-input>
-    </el-col>
-  </el-row>
+    <el-col :span="20">
+      <el-row :gutter="20">
+        <el-col :span="22">
+          <h1>编译原理实验环境</h1>
+        </el-col>
+        <el-col :span="2">
+          <el-button type="success" round v-on:click="loadFile"
+            >加载文件</el-button
+          >
+        </el-col>
+      </el-row>
 
-  <br />
-  <h3>2.4 自底向上LR归约步骤</h3>
-  <el-table :data="tableProcess" border style="width: 100%">
-    <el-table-column prop="idx" label="步骤"></el-table-column>
-    <el-table-column prop="state" label="状态栈"></el-table-column>
-    <el-table-column prop="sym" label="符号栈"></el-table-column>
-    <el-table-column prop="next" label="Next"></el-table-column>
-    <el-table-column prop="act" label="动作说明"></el-table-column>
-  </el-table>
+      <h2>1 词法分析</h2>
+      <el-row :gutter="20">
+        <el-col :span="22"
+          ><el-input
+            type="textarea"
+            :autosize="{ minRows: 5 }"
+            placeholder="请输入源代码"
+            v-model="RawLex"
+          >
+          </el-input
+        ></el-col>
+        <el-col :span="2"
+          ><el-button type="primary" v-on:click="Lex_parser"
+            >词法分析</el-button
+          ></el-col
+        >
+      </el-row>
 
-  <br />
+      <br />
 
-  <h3>2.5 语法树</h3>
-  <!-- <vue3-mermaid
+      <el-row :gutter="20">
+        <el-col :span="24"
+          ><el-input
+            type="textarea"
+            :autosize="{ minRows: 5 }"
+            placeholder="词法分析结果"
+            v-model="LexResult"
+            disabled
+          >
+          </el-input
+        ></el-col>
+      </el-row>
+
+      <br />
+
+      <h2>2 语法分析</h2>
+
+      <el-row :gutter="20">
+        <el-col :span="22">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 1 }"
+            placeholder="请输入终结符,以\分割,不要包含空格"
+            v-model="RawTerminalSymbols"
+          ></el-input>
+        </el-col>
+
+        <el-col :span="2">
+          <el-button type="primary" v-on:click="grammar_parser">
+            语法分析
+          </el-button>
+        </el-col>
+      </el-row>
+
+      <br />
+
+      <el-row :gutter="20">
+        <el-col>
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 5 }"
+            placeholder="请输入语法"
+            v-model="RawGrammar"
+          ></el-input>
+        </el-col>
+      </el-row>
+
+      <h3>2.1 DFA</h3>
+
+      <vue3-mermaid :nodes="graph" type="graph TD" :key="graph"></vue3-mermaid>
+      <!-- v-if="renderGraph" -->
+      <h3>2.2 SLR分析表</h3>
+      <el-table :data="SLRtableData" style="width: 100%" height="650" stripe>
+        <el-table-column fixed prop="num" label=" " width="50">
+        </el-table-column>
+        <el-table-column label="ACTION">
+          <el-table-column
+            v-for="s in SLRtableCol1"
+            v-bind:key="s"
+            :prop="s"
+            :label="s"
+          ></el-table-column>
+        </el-table-column>
+        <el-table-column label="GOTO">
+          <el-table-column
+            v-for="s in SLRtableCol2"
+            v-bind:key="s"
+            :prop="s"
+            :label="s"
+          ></el-table-column>
+        </el-table-column>
+      </el-table>
+
+      <br />
+
+      <h3>2.3 输入归约规则</h3>
+      <el-row :gutter="20">
+        <el-col :span="6"> 原表达式 </el-col>
+        <el-col :span="12"></el-col>
+        <el-col :span="4">
+          <el-button type="primary" v-on:click="GrammarFunctionReturner"
+            >确认归约规则，构建语法树</el-button
+          >
+        </el-col>
+        <el-col :span="2"></el-col>
+      </el-row>
+      <el-row :gutter="20" v-for="s in GrammarFunction" v-bind:key="s.str">
+        <el-col :span="6">
+          {{ s.str }}
+        </el-col>
+        <el-col :span="18">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 5, maxRows: 5 }"
+            placeholder="请输入归约规则"
+            v-model="s.FuncStr"
+          ></el-input>
+        </el-col>
+      </el-row>
+
+      <br />
+      <h3>2.4 自底向上LR归约步骤</h3>
+      <el-table :data="tableProcess" border style="width: 100%">
+        <el-table-column prop="idx" label="步骤"></el-table-column>
+        <el-table-column prop="state" label="状态栈"></el-table-column>
+        <el-table-column prop="sym" label="符号栈"></el-table-column>
+        <el-table-column prop="next" label="Next"></el-table-column>
+        <el-table-column prop="act" label="动作说明"></el-table-column>
+      </el-table>
+
+      <br />
+
+      <h3>2.5 语法树</h3>
+      <!-- <vue3-mermaid
     :nodes="treeGraph"
     type="graph TD"
     :key="treeGraph"
   ></vue3-mermaid> -->
-  <!-- <Tree :treeGraph="treeGraph" /> -->
-  <el-input
-    type="textarea"
-    :autosize="{ minRows: 5 }"
-    placeholder="语法树"
-    v-model="treeText"
-    disabled
-  ></el-input>
+      <!-- <Tree :treeGraph="treeGraph" /> -->
+      <el-input
+        type="textarea"
+        :autosize="{ minRows: 5 }"
+        placeholder="语法树"
+        v-model="treeText"
+        disabled
+      ></el-input>
 
-  <br />
+      <br />
 
-  <h3>2.6 三地址码</h3>
-  <el-input
-    type="textarea"
-    :autosize="{ minRows: 5 }"
-    placeholder="三地址码"
-    v-model="Result"
-    disabled
-  ></el-input>
+      <h3>2.6 三地址码</h3>
+      <el-input
+        type="textarea"
+        :autosize="{ minRows: 5 }"
+        placeholder="三地址码"
+        v-model="Result"
+        disabled
+      ></el-input>
+    </el-col>
+    <el-col :span="2"></el-col>
+  </el-row>
 </template>
 
 <script>
 import axios from "axios";
 // import Tree from "./components/tree";
+import { ElMessage } from "element-plus";
 export default {
   name: "App",
   components: {
@@ -235,8 +245,10 @@ export default {
 
       tableProcess: [],
       stepProcess: 0,
-      Result: "Fuck",
+      Result: "三地址码",
       treeText: "",
+
+      errorText: "",
     };
   },
   methods: {
@@ -711,6 +723,8 @@ export default {
       let SymStack = [{ type: "$" }];
       let tmp = this.LexStream.shift();
       let Next = { type: tmp["type"], attribute: tmp["attribute"] };
+      this.errorText +=
+        tmp["attribute"] == "_" ? tmp["type"] + " " : tmp["attribute"] + " ";
       let flag = true;
       while (flag) {
         flag = false;
@@ -722,12 +736,32 @@ export default {
         if (stateStack.length == SymStack.length) {
           let action = this.ACTION[stateStack.slice(-1)[0]][Next["type"]];
           console.log("action:", action);
-          if (action == "acc") {
+          if (action == undefined) {
+            let expect = "";
+            for (let e in this.ACTION[stateStack.slice(-1)[0]])
+              expect += e + " ";
+            this.$alert(
+              "<i>" +
+                this.errorText.slice(0, -2) +
+                ' </i><font color="red">^'+this.errorText.slice(-2)+'</font><br><strong>Next character unexpected</strong><br>Expect: <font color="green">' +
+                expect +
+                "</font>",
+              "编译错误",
+              {
+                confirmButtonText: "确定",
+                dangerouslyUseHTMLString: true,
+              }
+            );
+          } else if (action == "acc") {
             this.tableProcess[this.tableProcess.length - 1]["act"] = "acc";
             console.log("Build tree success:");
             console.log(SymStack.slice(-1)[0]);
             this.Result = SymStack.slice(-1)[0]["code"];
             this.showTree(SymStack.slice(-1)[0], 0);
+            ElMessage.success({
+              message: "生成三地址码成功",
+              type: "success",
+            });
             return true;
           } else if (action[0] == "s") {
             this.tableProcess[this.tableProcess.length - 1]["act"] =
@@ -744,6 +778,10 @@ export default {
             SymStack.push(Next);
             tmp = this.LexStream.shift();
             Next = { type: tmp["type"], attribute: tmp["attribute"] };
+            this.errorText +=
+              tmp["attribute"] == "_"
+                ? tmp["type"] + " "
+                : tmp["attribute"] + " ";
             flag = true;
           } else if (action[0] == "r") {
             let gramNum = parseInt(action.slice(1));
@@ -766,6 +804,8 @@ export default {
             console.log("para_arr:", para_arr);
             SymStack.push(this.GrammarFunction[gramNum]["f"](para_arr, this));
             flag = true;
+          } else {
+            ElMessage.error("ACTION表内符号错误");
           }
         } else if (stateStack.length < SymStack.length) {
           this.tableProcess[this.tableProcess.length - 1]["act"] =
@@ -786,6 +826,8 @@ export default {
             )
           );
           flag = true;
+        } else {
+          ElMessage.error("符号栈/状态栈状态异常");
         }
       }
       return false;
